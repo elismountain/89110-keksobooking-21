@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [OLGA AVRAMENKO](https://up.htmlacademy.ru/javascript/21/user/89110).
-* Наставник: `Неизвестно`.
+* Наставник: [Игорь Шевченко] (https://htmlacademy.ru/profile/id149304).
 
 ---
 
