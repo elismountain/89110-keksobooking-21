@@ -1,6 +1,6 @@
 'use strict';
 
-var TITLES = ['а', 'b', 'c', 'd', 'e', 'f', 'g', 'k'];
+var TITLES = [' Большая квартира', 'Маленькая квартира', 'Огромный дом', 'Маленький дом', 'Гостевой дом', 'Квартира на чердаке', 'Квартира в подвале', 'Хостел на 100 человек'];
 var TYPES = ['palace', 'flat', 'house', 'bungalow'];
 var TIME = ['12:00', '13:00', '14:00'];
 var FACILITY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -21,7 +21,7 @@ var getRandomArray = function (arr) { // случайное количесвто
   while (newArr.length < newArrLen) {
     var randomElement = getRandomElement(arr);
     if (newArr.indexOf(randomElement) !== -1) { // check for duplicates
-      continue;
+      continue; // если нет эленмента, то добавлять
     }
     newArr.push(randomElement); // добавить в конец массива
   }
@@ -87,6 +87,9 @@ var getMapPin = function (element) {
   mapPin.style.left = element.location.x - (mapPinImage.width / 2) + 'px';
   mapPin.style.top = element.location.y - mapPinImage.height + 'px';
   mapPin.querySelector('img').setAttribute('src', element.author.avatar);
+  mapPin.onclick = function () {
+    fillCard(element);
+  };
 
   return mapPin;
 };
@@ -98,3 +101,37 @@ for (var i = 0; i < listOfRentals.length; i++) {
 }
 
 mapListElement.appendChild(fragment);
+
+// Отрисуйте сгенерированные DOM-элементы в блок .map__pins. Для вставки элементов используйте DocumentFragment.
+var cardTemplate = document.querySelector('#card').content;
+var mapCard = cardTemplate.querySelector('.map__card').cloneNode(true);
+
+// проверила, что у меня не создается много окон
+mapCard.querySelector('.popup__close').onclick = function () {
+  mapListElement.removeChild(mapCard);
+};
+
+var fillCard = function (element) {
+//  console.log(cardTemplate.childNodes);
+//  console.log(mapCard);
+  mapCard.querySelector('.popup__title').textContent = element.offer.title;
+  mapCard.querySelector('.popup__text--address').textContent = element.offer.address;
+  mapCard.querySelector('.popup__text--price').textContent = element.offer.price + '₽/ночь';
+  mapCard.querySelector('.popup__type').textContent = element.offer.type; // если getValueTypeOffer(); то пишет element is not defined
+  mapCard.querySelector('h4').nextElementSibling.textContent = element.offer.rooms + ' для ' + element.offer.guests + 'гостей'; // почему если пишу .popup__text--capacity, то оставляет два значния?
+  mapCard.querySelector('.popup__features').previousElementSibling.textContent = 'Заезд после ' + element.offer.checkin + ', выезд до ' + element.offer.checkout;
+  mapListElement.appendChild(mapCard);
+};
+
+// перевожу на русский
+// var getValueTypeOffer = function () {
+//   if (element.offer.type === 'flat') {
+//     return 'Квартира';
+//   } else if (element.offer.type === 'bungalow') {
+//     return 'Бунгало';
+//   } else if (element.offer.type === 'palace') {
+//     return 'Дворец';
+//   } else {
+//     return 'Дом';
+//   }
+// };
