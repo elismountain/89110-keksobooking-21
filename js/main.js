@@ -1,8 +1,8 @@
 'use strict';
 
-var TITLES = []; // где взять названия, в разметке не вижу
+var TITLES = ['а', 'b', 'c', 'd', 'e', 'f', 'g', 'k'];
 var TYPES = ['palace', 'flat', 'house', 'bungalow'];
-var TIME = ['12:00', '13:00', '14:00']; // нужно только время или чекин чекаут , повторяются цифры
+var TIME = ['12:00', '13:00', '14:00'];
 var FACILITY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var NUMBER_OF_USERS = 8;
 
@@ -14,33 +14,35 @@ var getRandomElement = function (arr) {
   return arr[getRandomNumber(0, arr.length)];
 };
 
-var getRandomArray = function (arr) { // эту функцию я стырила, но не до конца поняла, как она работает
+var getRandomArray = function (arr) { // случайное количесвто элементов без повторений
   var newArr = [];
-  while (newArr.length < arr.length) {
+  var newArrLen = getRandomNumber(1, arr.length); // пока длина меньше чем у arr (FACILITY)
+
+  while (newArr.length < newArrLen) {
     var randomElement = getRandomElement(arr);
-    if (newArr.indexOf(randomElement) !== -1) {
+    if (newArr.indexOf(randomElement) !== -1) { // check for duplicates
       continue;
     }
-    newArr.push(randomElement);
+    newArr.push(randomElement); // добавить в конец массива
   }
-  newArr = newArr.slice(0, getRandomNumber(0, newArr.length));
+
   return newArr;
 };
 
 var createOffer = function (indexOffer) {
-  var coordinatesLocation = [getRandomNumber(300, 900), getRandomNumber(130, 630)]; // размер блока 1 координаты я не могу найти , поставила произвольные
+  var coordinatesLocation = [getRandomNumber(0, 900), getRandomNumber(130, 630)]; // от 0 до 900
   return {
     'author': {
-      'avatar': 'img/avatars/user' + (indexOffer + 1) + '.png'
-    }, // как это правильно можно записать ?
+      'avatar': 'img/avatars/user' + String(indexOffer + 1).padStart(2, '0') + '.png'
+    }, // fixed
 
     'offer': {
       'title': TITLES[indexOffer],
       'address': coordinatesLocation[0] + ',' + coordinatesLocation[1],
       'price': getRandomNumber(0, 1000000),
       'type': getRandomElement(TYPES),
-      'rooms': getRandomNumber(1, 10), // сколько комнат?
-      'guests': getRandomNumber(1, 10), // тоже самое, где взять количество гостей
+      'rooms': getRandomNumber(1, 10),
+      'guests': getRandomNumber(1, 10),
       'checkin': getRandomElement(TIME),
       'checkout': getRandomElement(TIME),
       'features': getRandomArray(FACILITY),
@@ -56,13 +58,13 @@ var createOffer = function (indexOffer) {
 };
 
 var addObjects = function (numberOfObjects) {
-  var Objects = [];
+  var objects = [];
 
   for (var i = 0; i < numberOfObjects; i++) {
-    Objects.push(createOffer(i));
+    objects.push(createOffer(i));
   }
 
-  return Objects;
+  return objects;
 };
 
 var listOfRentals = addObjects(NUMBER_OF_USERS);
