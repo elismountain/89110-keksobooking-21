@@ -14,7 +14,7 @@ var getRandomElement = function (arr) {
   return arr[getRandomNumber(0, arr.length)];
 };
 
-var getRandomArray = function (arr) { // эту функцию я стырила, но не до концапоняла, как оа работает
+var getRandomArray = function (arr) { // эту функцию я стырила, но не до конца поняла, как она работает
   var newArr = [];
   while (newArr.length < arr.length) {
     var randomElement = getRandomElement(arr);
@@ -75,5 +75,24 @@ map.classList.remove('map--faded');
 // 3. На основе данных, созданных в первом пункте, создайте DOM-элементы, соответствующие меткам на карте,
 // и заполните их данными из массива. Итоговую разметку метки .map__pin можно взять из шаблона #pin.
 
-var pins = document.querySelectorAll('.map__pin');
-var mapTemplate = document.querySelector('#pin').content;
+var mapListElement = map.querySelector('.map__pins');
+var template = document.querySelector('#pin').content;
+
+var getMapPin = function (element) {
+  var mapPin = template.querySelector('.map__pin').cloneNode(true);
+  var mapPinImage = mapPin.querySelector('img');
+
+  mapPin.style.left = element.location.x - (mapPinImage.width / 2) + 'px';
+  mapPin.style.top = element.location.y - mapPinImage.height + 'px';
+  mapPin.querySelector('img').setAttribute('src', element.author.avatar);
+
+  return mapPin;
+};
+
+var fragment = document.createDocumentFragment();
+
+for (var i = 0; i < listOfRentals.length; i++) {
+  fragment.appendChild(getMapPin(listOfRentals[i]));
+}
+
+mapListElement.appendChild(fragment);
