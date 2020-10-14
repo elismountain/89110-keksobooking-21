@@ -106,32 +106,39 @@ mapListElement.appendChild(fragment);
 var cardTemplate = document.querySelector('#card').content;
 var mapCard = cardTemplate.querySelector('.map__card').cloneNode(true);
 
+//  Вставьте полученный DOM-элемент в блок .map перед блоком.map__filters-container.
+var before = document.querySelector('.map__filters-container');
+var nodeParent = before.parentNode;
+nodeParent.insertBefore(mapCard, before); // inserts card before .map__filters-container:
+
 // проверила, что у меня не создается много окон
 mapCard.querySelector('.popup__close').onclick = function () {
   mapListElement.removeChild(mapCard);
 };
 
 var fillCard = function (element) {
-//  console.log(cardTemplate.childNodes);
-//  console.log(mapCard);
+  var getValueTypeOffer = function () {
+    if (element.offer.type === 'palace') {
+      return 'Дворец';
+    } else if (element.offer.type === 'flat') {
+      return 'Квартира';
+    } else if (element.offer.type === 'house') {
+      return 'Дом';
+    } else {
+      return 'Бунгало';
+    }
+  };
+  //  console.log(cardTemplate.childNodes);
+  //  console.log(mapCard);
   mapCard.querySelector('.popup__title').textContent = element.offer.title;
   mapCard.querySelector('.popup__text--address').textContent = element.offer.address;
   mapCard.querySelector('.popup__text--price').textContent = element.offer.price + '₽/ночь';
-  mapCard.querySelector('.popup__type').textContent = element.offer.type; // если getValueTypeOffer(); то пишет element is not defined
+  mapCard.querySelector('.popup__type').textContent = getValueTypeOffer(); // если getValueTypeOffer(); то пишет element is not defined
   mapCard.querySelector('h4').nextElementSibling.textContent = element.offer.rooms + ' для ' + element.offer.guests + 'гостей'; // почему если пишу .popup__text--capacity, то оставляет два значния?
   mapCard.querySelector('.popup__features').previousElementSibling.textContent = 'Заезд после ' + element.offer.checkin + ', выезд до ' + element.offer.checkout;
+  mapCard.querySelector('.popup__description').textContent = element.offer.description;
+  mapCard.querySelector('.popup__avatar').setAttribute('src', element.author.avatar);
+  mapCard.querySelector('.popup__photos').textContent = ('src', element.offer.photos);
+
   mapListElement.appendChild(mapCard);
 };
-
-// перевожу на русский
-// var getValueTypeOffer = function () {
-//   if (element.offer.type === 'flat') {
-//     return 'Квартира';
-//   } else if (element.offer.type === 'bungalow') {
-//     return 'Бунгало';
-//   } else if (element.offer.type === 'palace') {
-//     return 'Дворец';
-//   } else {
-//     return 'Дом';
-//   }
-// };
