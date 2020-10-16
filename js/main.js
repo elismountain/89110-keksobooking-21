@@ -108,14 +108,12 @@ var createCard = function () {
   var cardTemplate = document.querySelector('#card').content;
   var mapCard = cardTemplate.querySelector('.map__card').cloneNode(true);
   fillCard(listOfRentals[0], mapCard);
-  mapCard.querySelector('.popup__close').onclick = function () {
+  mapCard.querySelector('.popup__close').addEventListener('click', function () {
     mapCard.parentNode.removeChild(mapCard);
-  };
+  });
   var before = document.querySelector('.map__filters-container');
   var nodeParent = before.parentNode;
   nodeParent.insertBefore(mapCard, before);
-
-  console.log(mapCard.parentNode);
 
   return mapCard;
 };
@@ -129,11 +127,12 @@ var getMapPin = function (element) {
   mapPin.style.left = element.location.x - (mapPinImage.width / 2) + 'px';
   mapPin.style.top = element.location.y - mapPinImage.height + 'px';
   mapPin.querySelector('img').setAttribute('src', element.author.avatar);
-  mapPin.onclick = function () {
+
+  mapPin.addEventListener('click', function () {
     fillCard(element, mapCard);
     mapListElement.appendChild(mapCard);
-    console.log(mapCard.parentNode);
-  };
+  });
+
   return mapPin;
 };
 
