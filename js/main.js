@@ -6,6 +6,7 @@ var TIME = ['12:00', '13:00', '14:00'];
 var FACILITY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var NUMBER_OF_USERS = 8;
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var ENTER_KEYCODE = 13;
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -68,10 +69,7 @@ var addObjects = function (numberOfObjects) {
 
 var listOfRentals = addObjects(NUMBER_OF_USERS);
 
-// 2. У блока .map уберите класс .map--faded.
-
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 
 // 3. На основе данных, созданных в первом пункте, создайте DOM-элементы, соответствующие меткам на карте,
 
@@ -127,8 +125,8 @@ var fillCard = function (element, mapCard) {
     }
   };
 
- var popupPhotos = mapCard.querySelector(`.popup__photos`);
- popupPhotos.appendChild(createPhotosFragment(element.offer.photos));
+  var popupPhotos = mapCard.querySelector(`.popup__photos`);
+  popupPhotos.appendChild(createPhotosFragment(element.offer.photos));
 
   mapCard.querySelector('.popup__title').textContent = element.offer.title;
   mapCard.querySelector('.popup__text--address').textContent = element.offer.address;
@@ -138,6 +136,8 @@ var fillCard = function (element, mapCard) {
   mapCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + element.offer.checkin + ', выезд до ' + element.offer.checkout;
   mapCard.querySelector('.popup__description').textContent = element.offer.description;
   mapCard.querySelector('.popup__avatar').setAttribute('src', element.author.avatar);
+  mapCard.classList.add('hidden'); // прячу карточку
+
 };
 
 var createCard = function () {
@@ -163,6 +163,7 @@ var getMapPin = function (element) {
   mapPin.style.left = element.location.x - (mapPinImage.width / 2) + 'px';
   mapPin.style.top = element.location.y - mapPinImage.height + 'px';
   mapPin.querySelector('img').setAttribute('src', element.author.avatar);
+  mapPin.classList.add('hidden'); // прячу pins
 
   mapPin.addEventListener('click', function () {
     fillCard(element, mapCard);
@@ -179,3 +180,29 @@ for (var i = 0; i < listOfRentals.length; i++) {
 }
 
 mapListElement.appendChild(fragment);
+
+// 10. Личный проект: доверяй, но проверяй (часть 1)
+
+// var map = document.querySelector('.map');
+var mapPinMain = map.querySelector('.map__pin--main');
+var addForm = document.querySelector('.ad-form');
+// var addFieldset = addForm.querySelectorAll('fieldset');
+
+
+mapPinMain.addEventListener('mousedown', function (e) {
+  if (typeof e === 'object') {
+    if (e.button === 0) {
+      map.classList.remove('map--faded');
+    }
+  }
+  addForm.classList.remove('ad-form--disabled');
+});
+
+mapPinMain.addEventListener('keydown', function (e) {
+  if (typeof e === 'object') {
+    if (e.keyCode === ENTER_KEYCODE) {
+      map.classList.remove('map--faded');
+    }
+  }
+  addForm.classList.remove('ad-form--disabled');
+});
