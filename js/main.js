@@ -7,6 +7,7 @@ var FACILITY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var NUMBER_OF_USERS = 8;
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var ENTER_KEYCODE = 13;
+// var MIN_INPUT_PRICE = [0, 1000, 5000, 10000];
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -186,9 +187,10 @@ mapListElement.appendChild(fragment);
 // var map = document.querySelector('.map');
 var mapPinMain = map.querySelector('.map__pin--main');
 var addForm = document.querySelector('.ad-form');
-// var addFieldset = addForm.querySelectorAll('fieldset');
+var inputAddress = mapCard.querySelector('.popup__text--address');
+var formAddress = addForm.querySelectorAll('#address');
 
-
+// активация на левую кнопку мыши
 mapPinMain.addEventListener('mousedown', function (e) {
   if (typeof e === 'object') {
     if (e.button === 0) {
@@ -198,6 +200,7 @@ mapPinMain.addEventListener('mousedown', function (e) {
   addForm.classList.remove('ad-form--disabled');
 });
 
+// активация на таб
 mapPinMain.addEventListener('keydown', function (e) {
   if (typeof e === 'object') {
     if (e.keyCode === ENTER_KEYCODE) {
@@ -206,3 +209,35 @@ mapPinMain.addEventListener('keydown', function (e) {
   }
   addForm.classList.remove('ad-form--disabled');
 });
+
+// title input validation
+var inputTitle = addForm.querySelector('#title');
+
+var onValidationInputTitle = function () {
+  inputTitle.required = 'required';
+  inputTitle.minLength = '30';
+  inputTitle.maxLength = '100';
+};
+
+onValidationInputTitle();
+
+
+var onValidationInputAddress = function () {
+  inputAddress.required = 'required';
+  inputAddress.addEventListener('keydown', function (evt) {
+    if (evt.keyCode !== ENTER_KEYCODE) {
+      evt.preventDefault();
+    }
+  });
+};
+onValidationInputAddress();
+
+// адрес в форму
+
+var getPinCoords = function () {
+  var x = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2);
+  var y = Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight);
+  return String(x) + ', ' + String(y); // как добавить координаты с кончиком
+};
+
+formAddress[0].value = getPinCoords();
