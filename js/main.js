@@ -188,7 +188,8 @@ mapListElement.appendChild(fragment);
 var mapPinMain = map.querySelector('.map__pin--main');
 var addForm = document.querySelector('.ad-form');
 var inputAddress = mapCard.querySelector('.popup__text--address');
-var formAddress = addForm.querySelectorAll('#address');
+var formAddress = addForm.querySelector('#address');
+
 
 // активация на левую кнопку мыши
 mapPinMain.addEventListener('mousedown', function (e) {
@@ -237,7 +238,80 @@ onValidationInputAddress();
 var getPinCoords = function () {
   var x = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2);
   var y = Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight);
-  return String(x) + ', ' + String(y); // как добавить координаты с кончиком
+  return String(x) + ', ' + String(y);
 };
 
-formAddress[0].value = getPinCoords();
+formAddress.value = getPinCoords();
+
+// validation price
+var priceSelect = addForm.querySelectorAll('#price');
+
+var onValidationInputPrice = function () {
+  priceSelect.required = 'required';
+  priceSelect.value = '1000';
+  priceSelect.min = '0';
+  priceSelect.max = '1000000';
+};
+
+onValidationInputPrice();
+
+
+var capacitySelect = addForm.querySelector('#capacity');
+var roomSelect = addForm.querySelector('#room_number');
+
+var disableOptions = function (options) {
+  for (i of [0, 1, 2, 3]) {
+    capacitySelect.querySelector('option[value="' + String(i) + '"]').disabled = false;
+  }
+  for (i of options) {
+    capacitySelect.querySelector('option[value="' + String(i) + '"]').disabled = true;
+  }
+};
+
+
+var onSetRoomChangeCapacity = function () {
+  if (roomSelect.value === '100') {
+    capacitySelect.querySelector('option[value="0"]').selected = true;
+    disableOptions([1, 2, 3]);
+  } else {
+    capacitySelect.querySelector('option[value="' + String(roomSelect.value) + '"]').selected = true;
+    var optionsToDisable = [0];
+    for (i = parseInt(roomSelect.value) + 1; i <= 3; i++) {
+      optionsToDisable.push(i);
+    }
+    disableOptions(optionsToDisable);
+  }
+};
+
+onSetRoomChangeCapacity();
+
+roomSelect.addEventListener('change', function () {
+  onSetRoomChangeCapacity();
+});
+
+roomSelect.addEventListener('input', onSetRoomChangeCapacity);
+
+var onCapasityValidation = function () {
+  if (roomSelect.value === '100' && capacitySelect.value !== '0') {
+    capacitySelect.setCustomValidity('Не для гостей');
+  } else if (roomSelect.value === '3' && capacitySelect.value === '0') {
+    capacitySelect.setCustomValidity('Количество гостей может быть 1, 2, 3');
+  } else if (roomSelect.value === '2' && capacitySelect.value === '0' || roomSelect.value === '2' && capacitySelect.value === '3') {
+    capacitySelect.setCustomValidity('Количество гостей может быть 1 или 2');
+  } else if (roomSelect.value === '1' && capacitySelect.value === '0' || roomSelect.value === '1' && capacitySelect.value === '2' || roomSelect.value === '1' && capacitySelect.value === '3') {
+    capacitySelect.setCustomValidity('Только для 1 гостя');
+  } else {
+    capacitySelect.setCustomValidity('');
+  }
+  capacitySelect.reportValidity();
+};
+
+onCapasityValidation();
+
+// var typeSelect = addForm.querySelectorAll('#type');
+// var minInputPrice = {
+//   bungalow:  0,
+//   flat: 1000,
+//   house: 5000,
+//   palace: 10000
+// };
