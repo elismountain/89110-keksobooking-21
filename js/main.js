@@ -141,7 +141,6 @@ var fillCard = function (element, mapCard) {
   mapCard.querySelector('.popup__description').textContent = element.offer.description;
   mapCard.querySelector('.popup__avatar').setAttribute('src', element.author.avatar);
   mapCard.classList.add('hidden'); // прячу карточку
-
 };
 
 var createCard = function () {
@@ -303,7 +302,7 @@ var onSetRoomChangeCapacity = function () {
   } else {
     capacitySelect.querySelector('option[value="' + String(roomSelect.value) + '"]').selected = true;
     var optionsToDisable = [0];
-    for (i = parseInt(roomSelect.value) + 1; i <= 3; i++) {
+    for (i = parseInt(roomSelect.value, 10) + 1; i <= 3; i++) {
       optionsToDisable.push(i);
     }
     disableOptions(optionsToDisable);
