@@ -7,7 +7,7 @@ var FACILITY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var NUMBER_OF_USERS = 8;
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var ENTER_KEYCODE = 13;
-// var MIN_INPUT_PRICE = [0, 1000, 5000, 10000];
+
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -71,6 +71,9 @@ var addObjects = function (numberOfObjects) {
 var listOfRentals = addObjects(NUMBER_OF_USERS);
 
 var map = document.querySelector('.map');
+
+var mapFiltersNode = map.querySelector(`.map__filters-container`);
+var formFiltersNode = mapFiltersNode.querySelector(`.map__filters`);
 
 // 3. На основе данных, созданных в первом пункте, создайте DOM-элементы, соответствующие меткам на карте,
 
@@ -164,7 +167,7 @@ var getMapPin = function (element) {
   mapPin.style.left = element.location.x - (mapPinImage.width / 2) + 'px';
   mapPin.style.top = element.location.y - mapPinImage.height + 'px';
   mapPin.querySelector('img').setAttribute('src', element.author.avatar);
-  mapPin.classList.add('hidden'); // прячу pins
+  // mapPin.classList.add('hidden');
 
   mapPin.addEventListener('click', function () {
     fillCard(element, mapCard);
@@ -190,25 +193,45 @@ var addForm = document.querySelector('.ad-form');
 var inputAddress = mapCard.querySelector('.popup__text--address');
 var formAddress = addForm.querySelector('#address');
 
-
 // активация на левую кнопку мыши
+
+var toggleDisabledOnFormNodes = () => {
+  var pageIsActive = map.classList.contains('ad-form--disabled');
+  Array.from(addForm.children).forEach((children) => {
+    children.disabled = pageIsActive;
+    children.classList.toggle('disable-cursor');
+  });
+  Array.from(formFiltersNode.children).forEach((children) => {
+    children.disabled = pageIsActive;
+    children.classList.toggle('disable-cursor');
+  });
+};
+
+var onActiveMode = () => {
+  map.classList.remove('map--faded');
+  addForm.classList.remove('ad-form--disabled');
+  toggleDisabledOnFormNodes();
+};
+
 mapPinMain.addEventListener('mousedown', function (e) {
   if (typeof e === 'object') {
     if (e.button === 0) {
-      map.classList.remove('map--faded');
+      onActiveMode();
+      getMapPin();
+      getPinCoords();
     }
   }
-  addForm.classList.remove('ad-form--disabled');
 });
 
 // активация на таб
 mapPinMain.addEventListener('keydown', function (e) {
   if (typeof e === 'object') {
     if (e.keyCode === ENTER_KEYCODE) {
-      map.classList.remove('map--faded');
+      onActiveMode();
+      getMapPin();
+      getPinCoords();
     }
   }
-  addForm.classList.remove('ad-form--disabled');
 });
 
 // title input validation
@@ -234,10 +257,14 @@ var onValidationInputAddress = function () {
 onValidationInputAddress();
 
 // адрес в форму
+// var mainPinSize = {
+//   WIDTH: 62,
+//   HEIGHT: 72
+// };
 
 var getPinCoords = function () {
-  var x = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2);
-  var y = Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight);
+  var x = Math.round(mapPinMain.offsetLeft, 10 + mapPinMain.offsetWidth / 2);
+  var y = Math.round(mapPinMain.offsetTop, 10 + mapPinMain.offsetHeight);
   return String(x) + ', ' + String(y);
 };
 
@@ -307,11 +334,3 @@ var onCapasityValidation = function () {
 };
 
 onCapasityValidation();
-
-// var typeSelect = addForm.querySelectorAll('#type');
-// var minInputPrice = {
-//   bungalow:  0,
-//   flat: 1000,
-//   house: 5000,
-//   palace: 10000
-// };
