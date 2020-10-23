@@ -129,7 +129,7 @@ var fillCard = function (element, mapCard) {
     }
   };
 
-  var popupPhotos = mapCard.querySelector(`.popup__photos`);
+  var popupPhotos = mapCard.querySelector('.popup__photos');
   popupPhotos.appendChild(createPhotosFragment(element.offer.photos));
 
   mapCard.querySelector('.popup__title').textContent = element.offer.title;
