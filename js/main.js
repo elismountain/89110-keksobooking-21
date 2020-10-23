@@ -7,8 +7,14 @@ var FACILITY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var NUMBER_OF_USERS = 8;
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var ENTER_KEYCODE = 13;
+var ESC_KEYCODE = 27;
 var PIN_HEIGHT = 20;
-
+var MIN_PRICE = {
+  palace: 10000,
+  house: 5000,
+  flat: 1000,
+  bungalow: 0
+};
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -141,7 +147,6 @@ var fillCard = function (element, mapCard) {
   mapCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + element.offer.checkin + ', выезд до ' + element.offer.checkout;
   mapCard.querySelector('.popup__description').textContent = element.offer.description;
   mapCard.querySelector('.popup__avatar').setAttribute('src', element.author.avatar);
-  mapCard.classList.add('hidden'); // прячу карточку
 };
 
 var createCard = function () {
@@ -151,14 +156,23 @@ var createCard = function () {
   mapCard.querySelector('.popup__close').addEventListener('click', function () {
     mapCard.parentNode.removeChild(mapCard);
   });
+  map.addEventListener('keydown', function (e) {
+    if (typeof e === 'object') {
+      if (e.keyCode === ESC_KEYCODE) {
+        mapCard.parentNode.removeChild(mapCard);
+      }
+    }
+  });
+
   var before = document.querySelector('.map__filters-container');
   var nodeParent = before.parentNode;
   nodeParent.insertBefore(mapCard, before);
-
   return mapCard;
 };
 
 var mapCard = createCard();
+mapCard.classList.add('hidden');
+
 
 var getMapPin = function (element) {
   var mapPin = template.querySelector('.map__pin').cloneNode(true);
@@ -167,9 +181,9 @@ var getMapPin = function (element) {
   mapPin.style.left = element.location.x - (mapPinImage.width / 2) + 'px';
   mapPin.style.top = element.location.y - mapPinImage.height + 'px';
   mapPin.querySelector('img').setAttribute('src', element.author.avatar);
-  // mapPin.classList.add('hidden');
 
   mapPin.addEventListener('click', function () {
+    mapCard.classList.remove('hidden');
     fillCard(element, mapCard);
     mapListElement.appendChild(mapCard);
   });
@@ -179,7 +193,6 @@ var getMapPin = function (element) {
 
 // 10. Личный проект: доверяй, но проверяй (часть 1)
 
-// var map = document.querySelector('.map');
 var mapPinMain = map.querySelector('.map__pin--main');
 var addForm = document.querySelector('.ad-form');
 var inputAddress = mapCard.querySelector('.popup__text--address');
@@ -239,9 +252,9 @@ mapPinMain.addEventListener('keydown', function (e) {
 var inputTitle = addForm.querySelector('#title');
 
 var onValidationInputTitle = function () {
-  inputTitle.required = 'required';
-  inputTitle.minLength = '30';
-  inputTitle.maxLength = '100';
+  inputTitle.required = true;
+  inputTitle.minLength = 30;
+  inputTitle.maxLength = 100;
 };
 
 onValidationInputTitle();
@@ -257,11 +270,6 @@ var onValidationInputAddress = function () {
 };
 onValidationInputAddress();
 
-// адрес в форму
-// var mainPinSize = {
-//   WIDTH: 62,
-//   HEIGHT: 72
-// };
 
 var getPinCoords = function () {
   var pageNotActive = addForm.classList.contains('ad-form--disabled');
@@ -285,10 +293,10 @@ toggleDisabledOnForm();
 var priceSelect = addForm.querySelectorAll('#price');
 
 var onValidationInputPrice = function () {
-  priceSelect.required = 'required';
-  priceSelect.value = '1000';
-  priceSelect.min = '0';
-  priceSelect.max = '1000000';
+  priceSelect.required = true;
+  priceSelect.value = 1000;
+  priceSelect.min = 0;
+  priceSelect.max = 1000000;
 };
 
 onValidationInputPrice();
@@ -345,3 +353,34 @@ var onCapasityValidation = function () {
 };
 
 onCapasityValidation();
+
+// цена по типу жилья
+var onFormNodeChange = function (evt) {
+  switch (evt.target) {
+    case addForm.timein:
+    case addForm.timeout:
+      validateTimeSelects(evt);
+      break;
+    case addForm.type:
+      validatePriceInput();
+      break;
+  }
+};
+
+addForm.addEventListener('change', onFormNodeChange);
+
+
+var validatePriceInput = () => {
+  addForm.price.min = MIN_PRICE[addForm.type.value];
+  addForm.price.placeholder = MIN_PRICE[addForm.type.value];
+};
+
+// timein time out
+
+var validateTimeSelects = function (evt) {
+  if (evt.target === addForm.timein) {
+    addForm.timeout.value = addForm.timein.value;
+  } else {
+    addForm.timein.value = addForm.timeout.value;
+  }
+};
