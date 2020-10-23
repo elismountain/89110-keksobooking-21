@@ -7,6 +7,7 @@ var FACILITY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var NUMBER_OF_USERS = 8;
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var ENTER_KEYCODE = 13;
+var PIN_HEIGHT = 20;
 
 
 var getRandomNumber = function (min, max) {
@@ -176,14 +177,6 @@ var getMapPin = function (element) {
   return mapPin;
 };
 
-var fragment = document.createDocumentFragment();
-
-for (var i = 0; i < listOfRentals.length; i++) {
-  fragment.appendChild(getMapPin(listOfRentals[i]));
-}
-
-mapListElement.appendChild(fragment);
-
 // 10. Личный проект: доверяй, но проверяй (часть 1)
 
 // var map = document.querySelector('.map');
@@ -192,16 +185,22 @@ var addForm = document.querySelector('.ad-form');
 var inputAddress = mapCard.querySelector('.popup__text--address');
 var formAddress = addForm.querySelector('#address');
 
+// заполнение формы
+
+var fillForm = function () {
+  formAddress.value = getPinCoords();
+};
+
 // активация на левую кнопку мыши
 
-var toggleDisabledOnFormNodes = () => {
-  var pageIsActive = map.classList.contains('ad-form--disabled');
+var toggleDisabledOnForm = () => {
+  var pageNotActive = addForm.classList.contains('ad-form--disabled');
   Array.from(addForm.children).forEach((children) => {
-    children.disabled = pageIsActive;
+    children.disabled = pageNotActive;
     children.classList.toggle('disable-cursor');
   });
   Array.from(formFiltersNode.children).forEach((children) => {
-    children.disabled = pageIsActive;
+    children.disabled = pageNotActive;
     children.classList.toggle('disable-cursor');
   });
 };
@@ -209,15 +208,19 @@ var toggleDisabledOnFormNodes = () => {
 var onActiveMode = () => {
   map.classList.remove('map--faded');
   addForm.classList.remove('ad-form--disabled');
-  toggleDisabledOnFormNodes();
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < listOfRentals.length; i++) {
+    fragment.appendChild(getMapPin(listOfRentals[i]));
+  }
+  mapListElement.appendChild(fragment);
+  toggleDisabledOnForm();
 };
 
 mapPinMain.addEventListener('mousedown', function (e) {
   if (typeof e === 'object') {
     if (e.button === 0) {
       onActiveMode();
-      getMapPin();
-      getPinCoords();
+      fillForm();
     }
   }
 });
@@ -227,8 +230,7 @@ mapPinMain.addEventListener('keydown', function (e) {
   if (typeof e === 'object') {
     if (e.keyCode === ENTER_KEYCODE) {
       onActiveMode();
-      getMapPin();
-      getPinCoords();
+      fillForm();
     }
   }
 });
@@ -262,12 +264,22 @@ onValidationInputAddress();
 // };
 
 var getPinCoords = function () {
-  var x = Math.round(mapPinMain.offsetLeft, 10 + mapPinMain.offsetWidth / 2);
-  var y = Math.round(mapPinMain.offsetTop, 10 + mapPinMain.offsetHeight);
+  var pageNotActive = addForm.classList.contains('ad-form--disabled');
+  var x = 0;
+  var y = 0;
+  if (pageNotActive) {
+    x = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2);
+    y = Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);
+  } else {
+    x = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2);
+    y = Math.round(mapPinMain.offsetTop + PIN_HEIGHT + mapPinMain.offsetHeight);
+  }
   return String(x) + ', ' + String(y);
 };
 
 formAddress.value = getPinCoords();
+toggleDisabledOnForm();
+
 
 // validation price
 var priceSelect = addForm.querySelectorAll('#price');
@@ -286,7 +298,7 @@ var capacitySelect = addForm.querySelector('#capacity');
 var roomSelect = addForm.querySelector('#room_number');
 
 var disableOptions = function (options) {
-  for (i of [0, 1, 2, 3]) {
+  for (var i of [0, 1, 2, 3]) {
     capacitySelect.querySelector('option[value="' + String(i) + '"]').disabled = false;
   }
   for (i of options) {
@@ -302,7 +314,7 @@ var onSetRoomChangeCapacity = function () {
   } else {
     capacitySelect.querySelector('option[value="' + String(roomSelect.value) + '"]').selected = true;
     var optionsToDisable = [0];
-    for (i = parseInt(roomSelect.value, 10) + 1; i <= 3; i++) {
+    for (var i = parseInt(roomSelect.value, 10) + 1; i <= 3; i++) {
       optionsToDisable.push(i);
     }
     disableOptions(optionsToDisable);
