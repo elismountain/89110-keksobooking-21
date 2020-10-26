@@ -31,7 +31,7 @@ var getRandomArray = function (arr) { // случайное количесвто
   while (newArr.length < newArrLen) {
     var randomElement = getRandomElement(arr);
     if (newArr.indexOf(randomElement) === -1) { // check for duplicates
-      newArr.push(randomElement); // добавить в конец массива
+      newArr.push(randomElement);
     }
   }
 
@@ -375,7 +375,7 @@ var validatePriceInput = () => {
   addForm.price.placeholder = MIN_PRICE[addForm.type.value];
 };
 
-// timein time out
+// timein timeout
 
 var validateTimeSelects = function (evt) {
   if (evt.target === addForm.timein) {
