@@ -114,6 +114,12 @@
     addForm.price.placeholder = MIN_PRICE[addForm.type.value];
   };
 
+  roomSelect.addEventListener('change', function () {
+    onSetRoomChangeCapacity();
+  });
+
+  roomSelect.addEventListener('input', onSetRoomChangeCapacity);
+  addForm.addEventListener('change', onFormNodeChange);
 
   var validateTimeSelects = function (evt) {
     if (evt.target === addForm.timein) {
@@ -129,15 +135,9 @@
     formAddress.value = window.pin.getPinCoords();
     toggleDisabledOnForm();
     onValidationInputPrice();
-    onSetRoomChangeCapacity();
     onCapasityValidation();
+    onSetRoomChangeCapacity();
 
-    roomSelect.addEventListener('change', function () {
-      onSetRoomChangeCapacity();
-    });
-
-    roomSelect.addEventListener('input', onSetRoomChangeCapacity);
-    addForm.addEventListener('change', onFormNodeChange);
   };
 
   window.form = {

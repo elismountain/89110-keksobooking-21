@@ -34,23 +34,6 @@
       return photosFragment;
     };
 
-    var numDecline = function (num, nominative, genitiveSingular, genitivePlural) {
-      if (num > 10 && (Math.round((num % 100) / 10) === 1)) {
-        return genitivePlural;
-      } else {
-        switch (num % 10) {
-          case 1:
-            return nominative;
-          case 2:
-          case 3:
-          case 4:
-            return genitiveSingular;
-          default:
-            return genitivePlural;
-        }
-      }
-    };
-
     var popupPhotos = mapCard.querySelector('.popup__photos');
     popupPhotos.appendChild(createPhotosFragment(element.offer.photos));
 
@@ -58,7 +41,7 @@
     mapCard.querySelector('.popup__text--address').textContent = element.offer.address;
     mapCard.querySelector('.popup__text--price').textContent = element.offer.price + '₽/ночь';
     mapCard.querySelector('.popup__type').textContent = getValueTypeOffer();
-    mapCard.querySelector('.popup__text--capacity').textContent = element.offer.rooms + numDecline(element.offer.rooms, ' комната', ' комнаты', ' комнат') + ' для ' + element.offer.guests + numDecline(element.offer.guests, ' гостя', ' гостей', ' гостей');
+    mapCard.querySelector('.popup__text--capacity').textContent = element.offer.rooms + window.util.numDecline(element.offer.rooms, ' комната', ' комнаты', ' комнат') + ' для ' + element.offer.guests + window.util.numDecline(element.offer.guests, ' гостя', ' гостей', ' гостей');
     mapCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + element.offer.checkin + ', выезд до ' + element.offer.checkout;
     mapCard.querySelector('.popup__description').textContent = element.offer.description;
     mapCard.querySelector('.popup__avatar').setAttribute('src', element.author.avatar);
