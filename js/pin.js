@@ -2,9 +2,9 @@
 
 (function () {
   var PIN_HEIGHT = 20;
-  var mapListElement = window.map.map.querySelector('.map__pins');
+  var mapListElement = window.map.mainMap.querySelector('.map__pins');
   var template = document.querySelector('#pin').content;
-  var mapPinMain = window.map.map.querySelector('.map__pin--main');
+  var mapPinMain = window.map.mainMap.querySelector('.map__pin--main');
 
   var getMapPin = function (element) {
     var mapPin = template.querySelector('.map__pin').cloneNode(true);
@@ -15,8 +15,7 @@
     mapPin.querySelector('img').setAttribute('src', element.author.avatar);
 
     mapPin.addEventListener('click', function () {
-      window.card.mapCard.classList.remove('hidden');
-      window.card.fillCard(element, window.card.mapCard);
+      window.card.show(element);
       mapListElement.appendChild(window.card.mapCard);
     });
 

@@ -1,10 +1,10 @@
 "use strict";
 
 (function () {
-  var map = document.querySelector('.map');
+  var mainMap = document.querySelector('.map');
 
   var onActiveMode = () => {
-    map.classList.remove('map--faded');
+    mainMap.classList.remove('map--faded');
     window.form.addForm.classList.remove('ad-form--disabled');
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.data.listOfRentals.length; i++) {
@@ -16,6 +16,6 @@
 
   window.map = {
     onActiveMode: onActiveMode,
-    map: map
+    mainMap: mainMap
   };
 })();

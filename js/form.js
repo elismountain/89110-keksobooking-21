@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var mapFiltersNode = window.map.map.querySelector('.map__filters-container');
+  var mapFiltersNode = window.map.mainMap.querySelector('.map__filters-container');
   var formFiltersNode = mapFiltersNode.querySelector(`.map__filters`);
   var addForm = document.querySelector('.ad-form');
   var inputAddress = window.card.mapCard.querySelector('.popup__text--address');
@@ -114,10 +114,7 @@
     addForm.price.placeholder = MIN_PRICE[addForm.type.value];
   };
 
-  roomSelect.addEventListener('change', function () {
-    onSetRoomChangeCapacity();
-  });
-
+  roomSelect.addEventListener('change', onSetRoomChangeCapacity);
   roomSelect.addEventListener('input', onSetRoomChangeCapacity);
   addForm.addEventListener('change', onFormNodeChange);
 

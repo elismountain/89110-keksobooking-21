@@ -54,7 +54,7 @@
     mapCard.querySelector('.popup__close').addEventListener('click', function () {
       mapCard.parentNode.removeChild(mapCard);
     });
-    window.map.map.addEventListener('keydown', function (e) {
+    window.map.mainMap.addEventListener('keydown', function (e) {
       if (typeof e === 'object') {
         if (e.keyCode === window.util.ESC_KEYCODE) {
           mapCard.parentNode.removeChild(mapCard);
@@ -71,8 +71,14 @@
   var mapCard = createCard();
   mapCard.classList.add('hidden');
 
+  var show = function (element) {
+    mapCard.classList.remove('hidden');
+    fillCard(element, mapCard);
+  };
+
   window.card = {
     fillCard: fillCard,
     mapCard: mapCard,
+    show: show
   };
 })();
