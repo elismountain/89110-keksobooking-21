@@ -76,6 +76,7 @@
     fillCard(element, mapCard);
   };
 
+
   window.card = {
     fillCard: fillCard,
     mapCard: mapCard,
