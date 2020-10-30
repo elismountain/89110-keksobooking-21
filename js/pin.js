@@ -2,6 +2,8 @@
 
 (function () {
   var PIN_HEIGHT = 20;
+  var MIN_TOP = 130;
+  var MAX_TOP = 630;
   var mapListElement = window.map.mainMap.querySelector('.map__pins');
   var template = document.querySelector('#pin').content;
   var mapPinMain = window.map.mainMap.querySelector('.map__pin--main');
@@ -28,6 +30,15 @@
       if (typeof e === 'object') {
         if (e.button === 0) {
           window.map.onActiveMode();
+          // window.form.fillForm();
+        }
+      }
+    });
+
+    mapPinMain.addEventListener('mouseup', function (e) {
+      if (typeof e === 'object') {
+        if (e.button === 0) {
+          // window.map.onActiveMode();
           window.form.fillForm();
         }
       }
@@ -84,8 +95,26 @@
         y: moveEvt.clientY
       };
 
-      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+      var top = mapPinMain.offsetTop - shift.y;
+      var left = mapPinMain.offsetLeft - shift.x;
+
+      if (top < MIN_TOP) {
+        top = MIN_TOP;
+      } else if (top > MAX_TOP) {
+        top = MAX_TOP;
+      }
+
+      var MIN_LEFT = -mapPinMain.offsetWidth / 2;
+      var MAX_LEFT = window.map.mainMap.offsetWidth - mapPinMain.offsetWidth / 2;
+
+      if (left < MIN_LEFT) {
+        left = MIN_LEFT;
+      } else if (left > MAX_LEFT) {
+        left = MAX_LEFT;
+      }
+
+      mapPinMain.style.top = top + 'px';
+      mapPinMain.style.left = left + 'px';
 
 
       if (dragged) {
