@@ -30,7 +30,6 @@
       if (typeof e === 'object') {
         if (e.button === 0) {
           window.map.onActiveMode();
-          // window.form.fillForm();
         }
       }
     });
@@ -38,7 +37,6 @@
     mapPinMain.addEventListener('mouseup', function (e) {
       if (typeof e === 'object') {
         if (e.button === 0) {
-          // window.map.onActiveMode();
           window.form.fillForm();
         }
       }
