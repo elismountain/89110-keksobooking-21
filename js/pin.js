@@ -76,12 +76,8 @@
       y: evt.clientY
     };
 
-    let dragged = false;
-
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-
-      dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -114,14 +110,7 @@
       mapPinMain.style.top = top + 'px';
       mapPinMain.style.left = left + 'px';
 
-
-      if (dragged) {
-        var onClickPreventDefault = function (clickEvt) {
-          clickEvt.preventDefault();
-          mapPinMain.removeEventListener(`click`, onClickPreventDefault);
-        };
-        mapPinMain.addEventListener(`click`, onClickPreventDefault);
-      }
+      window.form.fillForm();
     };
 
     var onMouseUp = function (upEvt) {
