@@ -70,6 +70,7 @@
 
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
+    window.load.load(window.map.onActiveMode);
 
     var startCoords = {
       x: evt.clientX,
@@ -115,6 +116,7 @@
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
+      window.load.load(window.map.onActiveMode);
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
