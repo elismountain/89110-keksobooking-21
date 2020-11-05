@@ -50,7 +50,7 @@
   var createCard = function () {
     var cardTemplate = document.querySelector('#card').content;
     var mapCard = cardTemplate.querySelector('.map__card').cloneNode(true);
-    fillCard(window.data.listOfRentals[0], mapCard);
+    //fillCard(window.data.listOfRentals[0], mapCard);
     mapCard.querySelector('.popup__close').addEventListener('click', function () {
       mapCard.parentNode.removeChild(mapCard);
     });

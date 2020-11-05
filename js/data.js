@@ -45,7 +45,9 @@
     return objects;
   };
 
-  var listOfRentals = addObjects(NUMBER_OF_USERS);
+  var listOfRentals = [];
+
+  // addObjects(NUMBER_OF_USERS);
 
   window.data = {
     listOfRentals: listOfRentals,
