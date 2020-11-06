@@ -23,7 +23,6 @@
     window.form.addForm.classList.add('ad-form--disabled');
     for (var i = 0; i < pins.length; i++) {
       pins[i].parentNode.removeChild(pins[i]);
-
     }
     pins.splice(0, pins.length);
   };
@@ -32,6 +31,7 @@
 
   window.map = {
     onActiveMode: onActiveMode,
-    mainMap: mainMap
+    mainMap: mainMap,
+    onResetMode: onResetMode
   };
 })();

@@ -13,6 +13,31 @@
     bungalow: 0
   };
 
+  var main = document.querySelector('main');
+  var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+
+  var showSuccessMessage = function () {
+    var successMessage = successMessageTemplate.cloneNode(true);
+    main.appendChild(successMessage);
+    successMessage.addEventListener('click', () => {
+      successMessage.parentNode.removeChild(successMessage);
+
+    });
+  };
+
+  var onDataUploaded = function () {
+    window.map.onResetMode();
+    addForm.reset();
+    // вызвать дефолтное действие для очистки формы
+    showSuccessMessage();
+  };
+
+  addForm.addEventListener('submit', (evt) => {
+    window.load.upload(new FormData(addForm), onDataUploaded);
+    evt.preventDefault();
+  });
+
+
   var fillForm = function () {
     formAddress.value = window.pin.getPinCoords();
   };
