@@ -83,7 +83,6 @@
   };
 
   var onCapasityValidation = function () {
-    // console.log(roomSelect.value + ' ' + capacitySelect.value);
     if (roomSelect.value === '100' && capacitySelect.value !== '0') {
       capacitySelect.setCustomValidity('Не для гостей');
     } else if (roomSelect.value === '3' && capacitySelect.value === '0') {

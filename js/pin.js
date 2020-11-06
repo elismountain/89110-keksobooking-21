@@ -68,7 +68,6 @@
 
   var onDataLoaded = function (data) {
     window.data.listOfRentals = data;
-    console.log(data);
 
     window.map.onActiveMode();
   };
