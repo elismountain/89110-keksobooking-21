@@ -13,6 +13,37 @@
     bungalow: 0
   };
 
+  var main = document.querySelector('main');
+  var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+
+  var showSuccessMessage = function () {
+    var successMessage = successMessageTemplate.cloneNode(true);
+    main.appendChild(successMessage);
+    successMessage.addEventListener('click', () => {
+      successMessage.parentNode.removeChild(successMessage);
+    });
+  };
+
+  // var showErrorMessage = function () {
+  //   var errorMessageNode = errorMessageTemplate.cloneNode(true);
+  //   main.appendChild(errorMessage);
+  //   errorMessage.addEventListener('click', () => {
+  //     errorMessage.parentNode.removeChild(errorMessage);
+  //   });
+  // };
+
+  var onDataUploaded = function () {
+    window.map.onResetMode();
+    addForm.reset();
+    showSuccessMessage();
+  };
+
+  addForm.addEventListener('submit', (evt) => {
+    window.load.upload(new FormData(addForm), onDataUploaded);
+    evt.preventDefault();
+  });
+
+
   var fillForm = function () {
     formAddress.value = window.pin.getPinCoords();
   };
@@ -79,6 +110,7 @@
       }
       disableOptions(optionsToDisable);
     }
+    onCapasityValidation();
   };
 
   var onCapasityValidation = function () {
@@ -105,9 +137,9 @@
       case addForm.type:
         validatePriceInput();
         break;
+
     }
   };
-
 
   var validatePriceInput = () => {
     addForm.price.min = MIN_PRICE[addForm.type.value];
@@ -134,7 +166,6 @@
     onValidationInputPrice();
     onCapasityValidation();
     onSetRoomChangeCapacity();
-
   };
 
   window.form = {

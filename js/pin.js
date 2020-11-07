@@ -29,7 +29,7 @@
     mapPinMain.addEventListener('mousedown', function (e) {
       if (typeof e === 'object') {
         if (e.button === 0) {
-          window.map.onActiveMode();
+          window.load.load(onDataLoaded);
         }
       }
     });
@@ -45,7 +45,7 @@
     mapPinMain.addEventListener('keydown', function (e) {
       if (typeof e === 'object') {
         if (e.keyCode === window.util.ENTER_KEYCODE) {
-          window.map.onActiveMode();
+          window.load.load(onDataLoaded);
           window.form.fillForm();
         }
       }
@@ -65,6 +65,13 @@
     }
     return String(x) + ', ' + String(y);
   };
+
+  var onDataLoaded = function (data) {
+    window.data.listOfRentals = data;
+
+    window.map.onActiveMode();
+  };
+
 
   // перетаскивание
 
