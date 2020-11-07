@@ -22,6 +22,13 @@
     successMessage.addEventListener('click', () => {
       successMessage.parentNode.removeChild(successMessage);
     });
+    document.addEventListener('keydown', function (e) {
+      if (typeof e === 'object') {
+        if (e.keyCode === window.util.ESC_KEYCODE) {
+          successMessage.parentNode.removeChild(successMessage);
+        }
+      }
+    });
   };
 
   var onDataUploaded = function () {
