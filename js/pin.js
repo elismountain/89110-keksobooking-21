@@ -73,8 +73,6 @@
   };
 
 
-  // перетаскивание
-
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
