@@ -21,14 +21,20 @@
     main.appendChild(successMessage);
     successMessage.addEventListener('click', () => {
       successMessage.parentNode.removeChild(successMessage);
-
     });
   };
+
+  // var showErrorMessage = function () {
+  //   var errorMessageNode = errorMessageTemplate.cloneNode(true);
+  //   main.appendChild(errorMessage);
+  //   errorMessage.addEventListener('click', () => {
+  //     errorMessage.parentNode.removeChild(errorMessage);
+  //   });
+  // };
 
   var onDataUploaded = function () {
     window.map.onResetMode();
     addForm.reset();
-    // вызвать дефолтное действие для очистки формы
     showSuccessMessage();
   };
 
