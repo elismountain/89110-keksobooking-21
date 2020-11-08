@@ -2,8 +2,7 @@
 
 (function () {
   var mapFiltersNode = window.map.mainMap.querySelector('.map__filters-container');
-  // var formFiltersNode = mapFiltersNode.querySelector('.map__filters');
-  // console.log(formFiltersNode.children);
+  var formFiltersNode = mapFiltersNode.querySelector('.map__filters');
   var addForm = document.querySelector('.ad-form');
   var inputAddress = window.card.mapCard.querySelector('.popup__text--address');
   var formAddress = addForm.querySelector('#address');
@@ -29,12 +28,13 @@
           successMessage.parentNode.removeChild(successMessage);
         }
       }
-    });
+    }, {once: true});
   };
 
   var onDataUploaded = function () {
     window.map.onResetMode();
     addForm.reset();
+    window.card.removeActiveCard();
     showSuccessMessage();
   };
 
@@ -54,7 +54,7 @@
       children.disabled = pageNotActive;
       children.classList.toggle('disable-cursor');
     });
-    Array.from(window.filter.formFiltersNode.children).forEach((children) => {
+    Array.from(formFiltersNode.children).forEach((children) => {
       children.disabled = pageNotActive;
       children.classList.toggle('disable-cursor');
     });
@@ -175,7 +175,7 @@
     roomSelect: roomSelect,
     initForm: initForm,
     toggleDisabledOnForm: toggleDisabledOnForm,
-    mapFiltersNode: mapFiltersNode
-    // formFiltersNode: formFiltersNode
+    mapFiltersNode: mapFiltersNode,
+    formFiltersNode: formFiltersNode
   };
 })();

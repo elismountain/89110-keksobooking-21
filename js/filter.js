@@ -8,10 +8,8 @@ var RoomPrice = {
   HIGH: 50000
 };
 
-var formFiltersNode = window.form.mapFiltersNode.querySelector('.map__filters');
 
-var inputBoxes = Array.from(formFiltersNode.features);
-// console.log(inputBoxes);
+var inputBoxes = Array.from(window.form.formFiltersNode.features);
 
 var containsValue = (objectValue, filterValue, sourceArray, newArray) => {
   if (window.form.formFiltersNode[objectValue].value === FILTER_DEFAULT_VALUE) {
@@ -57,28 +55,20 @@ var filterPinsByFeatures = function (pinSimmillar) {
   });
 };
 
-window.filter = {
-  formFiltersNode: formFiltersNode,
-  updateSimillarPins: (array) => {
-    var filteredOffersArray = array.filter(filterPinsByType)
-    .filter(filterPinsByRooms)
-    .filter(filterPinsByGuests)
-    .filter(filterPinsByPrice)
-    .filter(filterPinsByFeatures)
-    .slice(0, MAX_SIMILLAR_PINS_COUNT);
 
-    window.card.mapCard.querySelector('.popup__close').addEventListener('click', function () {
-      window.card.mapCard.parentNode.removeChild(window.card.mapCard);
-    });
-    window.map.mainMap.addEventListener('keydown', function (e) {
-      if (typeof e === 'object') {
-        if (e.keyCode === window.util.ESC_KEYCODE) {
-          window.card.mapCard.parentNode.removeChild(window.card.mapCard);
-        }
-      }
-    });
-    window.pin.removePins();
-    window.map.initMapPinMain(filteredOffersArray);
-    window.card.addForm(filteredOffersArray);
-  }
+var updateSimillarPins = function (array) {
+  var filteredOffersArray = array.filter(filterPinsByType)
+  .filter(filterPinsByRooms)
+  .filter(filterPinsByGuests)
+  .filter(filterPinsByPrice)
+  .filter(filterPinsByFeatures)
+  .slice(0, MAX_SIMILLAR_PINS_COUNT);
+
+  window.card.hideActiveCard();
+  window.pin.removePins();
+  window.pin.createPins(filteredOffersArray);
+};
+
+window.filter = {
+  updateSimillarPins: updateSimillarPins
 };
