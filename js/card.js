@@ -35,7 +35,7 @@
     };
 
     var popupPhotos = mapCard.querySelector('.popup__photos');
-    //цикл, который удаляет всех детей ?? дублируюся фотографии при двойном клике
+    // цикл, который удаляет всех детей ?? дублируюся фотографии при двойном клике
     popupPhotos.appendChild(createPhotosFragment(element.offer.photos));
 
     mapCard.querySelector('.popup__title').textContent = element.offer.title;
