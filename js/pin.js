@@ -128,10 +128,18 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+  var removePins = () => {
+    var pinsNode = mapListElement.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+    for (let pinNode of pinsNode) {
+      template.parentNode.removeChild(pinNode);
+    }
+  };
+
   window.pin = {
     getPinCoords: getPinCoords,
     mapListElement: mapListElement,
     getMapPin: getMapPin,
-    initMapPinMain: initMapPinMain
+    initMapPinMain: initMapPinMain,
+    removePins: removePins
   };
 })();

@@ -2,7 +2,8 @@
 
 (function () {
   var mapFiltersNode = window.map.mainMap.querySelector('.map__filters-container');
-  var formFiltersNode = mapFiltersNode.querySelector(`.map__filters`);
+  // var formFiltersNode = mapFiltersNode.querySelector('.map__filters');
+  // console.log(formFiltersNode.children);
   var addForm = document.querySelector('.ad-form');
   var inputAddress = window.card.mapCard.querySelector('.popup__text--address');
   var formAddress = addForm.querySelector('#address');
@@ -53,7 +54,7 @@
       children.disabled = pageNotActive;
       children.classList.toggle('disable-cursor');
     });
-    Array.from(formFiltersNode.children).forEach((children) => {
+    Array.from(window.filter.formFiltersNode.children).forEach((children) => {
       children.disabled = pageNotActive;
       children.classList.toggle('disable-cursor');
     });
@@ -173,6 +174,8 @@
     fillForm: fillForm,
     roomSelect: roomSelect,
     initForm: initForm,
-    toggleDisabledOnForm: toggleDisabledOnForm
+    toggleDisabledOnForm: toggleDisabledOnForm,
+    mapFiltersNode: mapFiltersNode
+    // formFiltersNode: formFiltersNode
   };
 })();

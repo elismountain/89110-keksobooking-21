@@ -61,6 +61,8 @@
       }
     });
 
+    // var removeActiveCard = function (){};
+
     var before = document.querySelector('.map__filters-container');
     var nodeParent = before.parentNode;
     nodeParent.insertBefore(mapCard, before);
