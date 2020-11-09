@@ -17,15 +17,13 @@
     POST: 'POST'
   };
 
-  // var errorButton = document.querySelector('.error__button');
-
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
   var showError = function (message) {
     var errorMessageNode = errorMessageTemplate.cloneNode(true);
     errorMessageNode.querySelector('.error__message').textContent = message;
     window.form.addForm.reset();
-    window.form.addForm.appendChild(errorMessageNode);
+    document.querySelector('main').appendChild(errorMessageNode);
 
     document.addEventListener('keydown', function (e) {
       if (typeof e === 'object') {
