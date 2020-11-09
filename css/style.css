@@ -1166,7 +1166,6 @@ fieldset {
 .success__message,
 .error__message {
   position: relative;
-
   color: #ffffff;
   font-size: 50px;
   font-weight: 700;

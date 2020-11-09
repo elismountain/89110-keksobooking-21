@@ -17,6 +17,8 @@
     POST: 'POST'
   };
 
+  // var errorButton = document.querySelector('.error__button');
+
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
   var showError = function (message) {
@@ -30,7 +32,7 @@
         if (e.keyCode === window.util.ESC_KEYCODE) {
           window.map.onResetMode();
           window.form.addForm.reset();
-          window.card.removeActiveCard();
+          window.card.hideActiveCard();
           errorMessageNode.parentNode.removeChild(errorMessageNode);
         }
       }
@@ -39,7 +41,7 @@
     errorMessageNode.addEventListener('click', () => {
       window.map.onResetMode();
       window.form.addForm.reset();
-      window.card.removeActiveCard();
+      window.card.hideActiveCard();
       errorMessageNode.parentNode.removeChild(errorMessageNode);
     });
   };
