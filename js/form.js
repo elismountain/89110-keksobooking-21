@@ -2,7 +2,7 @@
 
 (function () {
   var mapFiltersNode = window.map.mainMap.querySelector('.map__filters-container');
-  var formFiltersNode = mapFiltersNode.querySelector(`.map__filters`);
+  var formFiltersNode = mapFiltersNode.querySelector('.map__filters');
   var addForm = document.querySelector('.ad-form');
   var inputAddress = window.card.mapCard.querySelector('.popup__text--address');
   var formAddress = addForm.querySelector('#address');
@@ -22,19 +22,19 @@
     successMessage.addEventListener('click', () => {
       successMessage.parentNode.removeChild(successMessage);
     });
+    document.addEventListener('keydown', function (e) {
+      if (typeof e === 'object') {
+        if (e.keyCode === window.util.ESC_KEYCODE) {
+          successMessage.parentNode.removeChild(successMessage);
+        }
+      }
+    }, {once: true});
   };
-
-  // var showErrorMessage = function () {
-  //   var errorMessageNode = errorMessageTemplate.cloneNode(true);
-  //   main.appendChild(errorMessage);
-  //   errorMessage.addEventListener('click', () => {
-  //     errorMessage.parentNode.removeChild(errorMessage);
-  //   });
-  // };
 
   var onDataUploaded = function () {
     window.map.onResetMode();
     addForm.reset();
+    window.card.removeActiveCard();
     showSuccessMessage();
   };
 
@@ -174,6 +174,8 @@
     fillForm: fillForm,
     roomSelect: roomSelect,
     initForm: initForm,
-    toggleDisabledOnForm: toggleDisabledOnForm
+    toggleDisabledOnForm: toggleDisabledOnForm,
+    mapFiltersNode: mapFiltersNode,
+    formFiltersNode: formFiltersNode
   };
 })();

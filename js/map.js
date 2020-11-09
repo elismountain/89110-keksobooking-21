@@ -8,14 +8,13 @@
   var onActiveMode = () => {
     mainMap.classList.remove('map--faded');
     window.form.addForm.classList.remove('ad-form--disabled');
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.data.listOfRentals.length; i++) {
-      var pin = window.pin.getMapPin(window.data.listOfRentals[i]);
-      fragment.appendChild(pin);
-      pins.push(pin);
-    }
-    window.pin.mapListElement.appendChild(fragment);
+    window.filter.updateSimillarPins(window.data.listOfRentals);
     window.form.toggleDisabledOnForm();
+
+    var filterPins = function () {
+      window.filter.updateSimillarPins(window.data.listOfRentals);
+    };
+    window.form.formFiltersNode.addEventListener(`change`, filterPins);
   };
 
   var onResetMode = function () {
@@ -30,6 +29,7 @@
   resetButton.addEventListener('click', onResetMode);
 
   window.map = {
+    pins: pins,
     onActiveMode: onActiveMode,
     mainMap: mainMap,
     onResetMode: onResetMode

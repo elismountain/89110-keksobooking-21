@@ -73,8 +73,6 @@
   };
 
 
-  // перетаскивание
-
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -130,10 +128,29 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+  var createPins = function (array) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < array.length; i++) {
+      var pin = window.pin.getMapPin(array[i]);
+      fragment.appendChild(pin);
+      window.map.pins.push(pin);
+    }
+    window.pin.mapListElement.appendChild(fragment);
+  };
+
+  var removePins = () => {
+    var pinsNode = mapListElement.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+    for (let pinNode of pinsNode) {
+      pinNode.parentNode.removeChild(pinNode);
+    }
+  };
+
   window.pin = {
     getPinCoords: getPinCoords,
     mapListElement: mapListElement,
     getMapPin: getMapPin,
-    initMapPinMain: initMapPinMain
+    initMapPinMain: initMapPinMain,
+    removePins: removePins,
+    createPins: createPins
   };
 })();

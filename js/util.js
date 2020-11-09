@@ -4,7 +4,7 @@
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
 
-  var getRandomNumber = function (min, max) { // util
+  var getRandomNumber = function (min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   };
 
@@ -12,13 +12,13 @@
     return arr[getRandomNumber(0, arr.length)];
   };
 
-  var getRandomArray = function (arr) { // случайное количесвто элементов без повторений
+  var getRandomArray = function (arr) {
     var newArr = [];
-    var newArrLen = getRandomNumber(1, arr.length); // пока длина меньше чем у arr (FACILITY)
+    var newArrLen = getRandomNumber(1, arr.length);
 
     while (newArr.length < newArrLen) {
       var randomElement = getRandomElement(arr);
-      if (newArr.indexOf(randomElement) === -1) { // check for duplicates
+      if (newArr.indexOf(randomElement) === -1) {
         newArr.push(randomElement);
       }
     }

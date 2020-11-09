@@ -35,6 +35,7 @@
     };
 
     var popupPhotos = mapCard.querySelector('.popup__photos');
+    //цикл, который удаляет всех детей ?? дублируюся фотографии при двойном клике
     popupPhotos.appendChild(createPhotosFragment(element.offer.photos));
 
     mapCard.querySelector('.popup__title').textContent = element.offer.title;
@@ -47,16 +48,17 @@
     mapCard.querySelector('.popup__avatar').setAttribute('src', element.author.avatar);
   };
 
+
   var createCard = function () {
     var cardTemplate = document.querySelector('#card').content;
     var mapCard = cardTemplate.querySelector('.map__card').cloneNode(true);
     mapCard.querySelector('.popup__close').addEventListener('click', function () {
-      mapCard.parentNode.removeChild(mapCard);
+      hideActiveCard();
     });
     window.map.mainMap.addEventListener('keydown', function (e) {
       if (typeof e === 'object') {
         if (e.keyCode === window.util.ESC_KEYCODE) {
-          mapCard.parentNode.removeChild(mapCard);
+          hideActiveCard();
         }
       }
     });
@@ -75,10 +77,15 @@
     fillCard(element, mapCard);
   };
 
+  var hideActiveCard = function () {
+    mapCard.classList.add('hidden');
+  };
 
   window.card = {
+    createCard: createCard,
     fillCard: fillCard,
     mapCard: mapCard,
-    show: show
+    show: show,
+    hideActiveCard: hideActiveCard
   };
 })();

@@ -22,17 +22,24 @@
   var showError = function (message) {
     var errorMessageNode = errorMessageTemplate.cloneNode(true);
     errorMessageNode.querySelector('.error__message').textContent = message;
+    window.form.addForm.reset();
     window.form.addForm.appendChild(errorMessageNode);
 
-    errorMessageNode.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', function (e) {
       if (typeof e === 'object') {
         if (e.keyCode === window.util.ESC_KEYCODE) {
+          window.map.onResetMode();
+          window.form.addForm.reset();
+          window.card.removeActiveCard();
           errorMessageNode.parentNode.removeChild(errorMessageNode);
         }
       }
     });
 
     errorMessageNode.addEventListener('click', () => {
+      window.map.onResetMode();
+      window.form.addForm.reset();
+      window.card.removeActiveCard();
       errorMessageNode.parentNode.removeChild(errorMessageNode);
     });
   };
