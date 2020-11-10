@@ -34,8 +34,9 @@
   var onDataUploaded = function () {
     window.map.onResetMode();
     addForm.reset();
-    window.card.removeActiveCard();
+    window.card.hideActiveCard();
     showSuccessMessage();
+    window.images.resetImage();
   };
 
   addForm.addEventListener('submit', (evt) => {
@@ -137,7 +138,6 @@
       case addForm.type:
         validatePriceInput();
         break;
-
     }
   };
 

@@ -34,6 +34,8 @@
         </button>
       </div>
 
+
+
       <!-- Фильтрация объявлений -->
       <div class="map__filters-container">
         <form action="#" class="map__filters" autocomplete="off">
@@ -116,7 +118,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" required>
+          <input id="price" name="price" type="number" placeholder="5000" min="5000" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
           <label class="ad-form__label" for="timein">Время заезда и выезда</label>
@@ -175,7 +177,9 @@
               <input type="file" id="images" name="images" class="ad-form__input visually-hidden" accept=".png,.jpg,.jpeg,.gif">
               <label for="images" class="ad-form__drop-zone">Загрузить<br>фото...</label>
             </div>
-            <div class="ad-form__photo"></div>
+            <div class="ad-form__photo">
+              <img src="" alt="Фото квартиры" width="70" height="70" class="hidden">
+            </div>
           </div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--submit">
@@ -249,6 +253,8 @@
   </template>
 
 
+
+
   <script src="js/util.js"></script>
   <script src="js/load.js"></script>
   <script src="js/map.js"></script>
@@ -258,6 +264,7 @@
   <script src="js/form.js"></script>
   <script src="js/filter.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/images.js"></script>
 
 
 </body>

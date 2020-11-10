@@ -2,6 +2,8 @@
 
 (function () {
 
+  var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+
   var fillCard = function (element, mapCard) {
     var getValueTypeOffer = function () {
       if (element.offer.type === 'palace') {
@@ -16,9 +18,8 @@
     };
 
     var createPhotosFragment = function (photosList) {
+
       var photosFragment = document.createDocumentFragment();
-      var templatePhoto = mapCard.querySelector('.popup__photo');
-      templatePhoto.parentNode.removeChild(templatePhoto);
 
       photosList.forEach(function (photo) {
         var photoItem = document.createElement('img');
@@ -34,8 +35,24 @@
       return photosFragment;
     };
 
+    var showFeatures = function () {
+      for (var i = 0; i < features.length; i++) {
+        var featureIcon = mapCard.querySelectorAll('.popup__feature--' + features[i])[0];
+        if (element.offer.features.includes(features[i])) {
+          featureIcon.classList.remove('hidden');
+        } else {
+          featureIcon.classList.add('hidden');
+        }
+      }
+    };
+
+    showFeatures();
+
+
     var popupPhotos = mapCard.querySelector('.popup__photos');
-    //цикл, который удаляет всех детей ?? дублируюся фотографии при двойном клике
+    while (popupPhotos.firstChild) {
+      popupPhotos.removeChild(popupPhotos.firstChild);
+    }
     popupPhotos.appendChild(createPhotosFragment(element.offer.photos));
 
     mapCard.querySelector('.popup__title').textContent = element.offer.title;
