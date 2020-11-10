@@ -11,9 +11,9 @@
     window.filter.updateSimillarPins(window.data.listOfRentals);
     window.form.toggleDisabledOnForm();
 
-    var filterPins = function () {
+    var filterPins = window.util.debounce(() => {
       window.filter.updateSimillarPins(window.data.listOfRentals);
-    };
+    });
     window.form.formFiltersNode.addEventListener(`change`, filterPins);
   };
 
