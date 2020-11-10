@@ -36,6 +36,7 @@
     addForm.reset();
     window.card.hideActiveCard();
     showSuccessMessage();
+    window.images.resetImage();
   };
 
   addForm.addEventListener('submit', (evt) => {

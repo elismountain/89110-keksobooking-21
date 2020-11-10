@@ -23,6 +23,7 @@
     var errorMessageNode = errorMessageTemplate.cloneNode(true);
     errorMessageNode.querySelector('.error__message').textContent = message;
     window.form.addForm.reset();
+    window.images.resetImage();
     document.querySelector('main').appendChild(errorMessageNode);
 
     document.addEventListener('keydown', function (e) {
