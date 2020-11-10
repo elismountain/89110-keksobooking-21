@@ -11,47 +11,47 @@ var RoomPrice = {
 
 var inputBoxes = Array.from(window.form.formFiltersNode.features);
 
-var containsValue = (objectValue, filterValue, sourceArray, newArray) => {
+var containsValue = (objectValue, filterValue, sourceArray, element) => {
   if (window.form.formFiltersNode[objectValue].value === FILTER_DEFAULT_VALUE) {
-    return sourceArray;
+    return true;
   } else {
-    return parseInt(newArray.offer[filterValue], 10) === parseInt(window.form.formFiltersNode[objectValue].value, 10);
+    return parseInt(element.offer[filterValue], 10) === parseInt(window.form.formFiltersNode[objectValue].value, 10);
   }
 };
 
-var filterPinsByType = (element, array) => {
+var filterPinsByType = (element) => {
   if (window.form.formFiltersNode[`housing-type`].value === FILTER_DEFAULT_VALUE) {
-    return array;
+    return true;
   } else {
     return element.offer.type === window.form.formFiltersNode[`housing-type`].value;
   }
 };
 
-var filterPinsByRooms = (pinSimmillar, index, array) => {
-  return containsValue(`housing-rooms`, `rooms`, array, pinSimmillar);
+var filterPinsByRooms = (pinSimilar, index, array) => {
+  return containsValue(`housing-rooms`, `rooms`, array, pinSimilar);
 };
 
-var filterPinsByGuests = (pinSimmillar, index, array) => {
-  return containsValue(`housing-guests`, `guests`, array, pinSimmillar);
+var filterPinsByGuests = (pinSimilar, index, array) => {
+  return containsValue(`housing-guests`, `guests`, array, pinSimilar);
 };
 
 
-var filterPinsByPrice = (pinSimmillar, index, array) => {
+var filterPinsByPrice = (pinSimilar) => {
   switch (window.form.formFiltersNode[`housing-price`].value) {
     case `low`:
-      return pinSimmillar.offer.price < RoomPrice.LOW;
+      return pinSimilar.offer.price < RoomPrice.LOW;
     case `middle`:
-      return pinSimmillar.offer.price >= RoomPrice.LOW && pinSimmillar.offer.price <= RoomPrice.HIGH;
+      return pinSimilar.offer.price >= RoomPrice.LOW && pinSimilar.offer.price <= RoomPrice.HIGH;
     case `high`:
-      return pinSimmillar.offer.price > RoomPrice.HIGH;
+      return pinSimilar.offer.price > RoomPrice.HIGH;
     default:
-      return array;
+      return true;
   }
 };
 
-var filterPinsByFeatures = function (pinSimmillar) {
+var filterPinsByFeatures = function (pinSimilar) {
   return !inputBoxes.some(function (element) {
-    return element.checked && !pinSimmillar.offer.features.includes(element.value);
+    return element.checked && !pinSimilar.offer.features.includes(element.value);
   });
 };
 
