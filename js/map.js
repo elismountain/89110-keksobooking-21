@@ -20,6 +20,9 @@
   var onResetMode = function () {
     mainMap.classList.add('map--faded');
     window.form.addForm.classList.add('ad-form--disabled');
+    window.form.addForm.reset();
+    window.images.resetImage();
+    window.card.hideActiveCard();
     for (var i = 0; i < pins.length; i++) {
       pins[i].parentNode.removeChild(pins[i]);
     }

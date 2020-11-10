@@ -22,16 +22,13 @@
   var showError = function (message) {
     var errorMessageNode = errorMessageTemplate.cloneNode(true);
     errorMessageNode.querySelector('.error__message').textContent = message;
-    window.form.addForm.reset();
-    window.images.resetImage();
+    window.map.onResetMode();
     document.querySelector('main').appendChild(errorMessageNode);
 
     document.addEventListener('keydown', function (e) {
       if (typeof e === 'object') {
-        if (e.keyCode === window.util.ESC_KEYCODE) {
+        if (e.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
           window.map.onResetMode();
-          window.form.addForm.reset();
-          window.card.hideActiveCard();
           errorMessageNode.parentNode.removeChild(errorMessageNode);
         }
       }

@@ -62,6 +62,6 @@
     getRandomArray: getRandomArray,
     numDecline: numDecline,
     ENTER_KEYCODE: ENTER_KEYCODE,
-    ESC_KEYCODE: ESC_KEYCODE,
+    ESC_KEYCODE: ESC_KEYCODE
   };
 })();
