@@ -1,7 +1,7 @@
 "use strict";
 
 var MAX_SIMILLAR_PINS_COUNT = 5;
-var FILTER_DEFAULT_VALUE = 'any';
+var FILTER_DEFAULT_VALUE = `any`;
 
 var RoomPrice = {
   LOW: 10000,
