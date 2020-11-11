@@ -59,8 +59,8 @@
     mapCard.querySelector(`.popup__text--address`).textContent = element.offer.address;
     mapCard.querySelector(`.popup__text--price`).textContent = element.offer.price + `₽/ночь`;
     mapCard.querySelector(`.popup__type`).textContent = getValueTypeOffer();
-    mapCard.querySelector(`.popup__text--capacity`).textContent = element.offer.rooms + window.util.numDecline(element.offer.rooms, ` комната`, ` комнаты`, ` комнат`) + ` для` + element.offer.guests + window.util.numDecline(element.offer.guests, ` гостя`, ` гостей`, ` гостей`);
-    mapCard.querySelector(`.popup__text--time`).textContent = `Заезд после` + element.offer.checkin + `, выезд до ` + element.offer.checkout;
+    mapCard.querySelector(`.popup__text--capacity`).textContent = element.offer.rooms + window.util.numDecline(element.offer.rooms, ` комната`, ` комнаты`, ` комнат`) + ` для ` + element.offer.guests + window.util.numDecline(element.offer.guests, ` гостя`, ` гостей`, ` гостей`);
+    mapCard.querySelector(`.popup__text--time`).textContent = `Заезд после ` + element.offer.checkin + `, выезд до ` + element.offer.checkout;
     mapCard.querySelector(`.popup__description`).textContent = element.offer.description;
     mapCard.querySelector(`.popup__avatar`).setAttribute(`src`, element.author.avatar);
   };
