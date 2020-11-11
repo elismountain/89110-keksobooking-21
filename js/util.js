@@ -1,8 +1,9 @@
-'use strict';
+"use strict";
 
 (function () {
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
+  var DEBOUNCE_INTERVAL = 500;
 
   var getRandomNumber = function (min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -42,12 +43,25 @@
     }
   };
 
+  var debounce = function (cb) {
+    var lastTimeout = null;
+    return (...parameters) => {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(() => {
+        cb(...parameters);
+      }, DEBOUNCE_INTERVAL);
+    };
+  };
+
   window.util = {
+    debounce: debounce,
     getRandomNumber: getRandomNumber,
     getRandomElement: getRandomElement,
     getRandomArray: getRandomArray,
     numDecline: numDecline,
     ENTER_KEYCODE: ENTER_KEYCODE,
-    ESC_KEYCODE: ESC_KEYCODE,
+    ESC_KEYCODE: ESC_KEYCODE
   };
 })();

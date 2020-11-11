@@ -1,22 +1,22 @@
-'use strict';
+"use strict";
 
 (function () {
   var PIN_HEIGHT = 20;
   var MIN_TOP = 130;
   var MAX_TOP = 630;
-  var mapListElement = window.map.mainMap.querySelector('.map__pins');
-  var template = document.querySelector('#pin').content;
-  var mapPinMain = window.map.mainMap.querySelector('.map__pin--main');
+  var mapListElement = window.map.mainMap.querySelector(`.map__pins`);
+  var template = document.querySelector(`#pin`).content;
+  var mapPinMain = window.map.mainMap.querySelector(`.map__pin--main`);
 
   var getMapPin = function (element) {
-    var mapPin = template.querySelector('.map__pin').cloneNode(true);
-    var mapPinImage = mapPin.querySelector('img');
+    var mapPin = template.querySelector(`.map__pin`).cloneNode(true);
+    var mapPinImage = mapPin.querySelector(`img`);
 
-    mapPin.style.left = element.location.x - (mapPinImage.width / 2) + 'px';
-    mapPin.style.top = element.location.y - mapPinImage.height + 'px';
-    mapPin.querySelector('img').setAttribute('src', element.author.avatar);
+    mapPin.style.left = element.location.x - (mapPinImage.width / 2) + `px`;
+    mapPin.style.top = element.location.y - mapPinImage.height + `px`;
+    mapPin.querySelector(`img`).setAttribute(`src`, element.author.avatar);
 
-    mapPin.addEventListener('click', function () {
+    mapPin.addEventListener(`click`, function () {
       window.card.show(element);
       mapListElement.appendChild(window.card.mapCard);
     });
@@ -26,24 +26,24 @@
 
   var initMapPinMain = function () {
 
-    mapPinMain.addEventListener('mousedown', function (e) {
-      if (typeof e === 'object') {
+    mapPinMain.addEventListener(`mousedown`, function (e) {
+      if (typeof e === `object`) {
         if (e.button === 0) {
           window.load.load(onDataLoaded);
         }
       }
     });
 
-    mapPinMain.addEventListener('mouseup', function (e) {
-      if (typeof e === 'object') {
+    mapPinMain.addEventListener(`mouseup`, function (e) {
+      if (typeof e === `object`) {
         if (e.button === 0) {
           window.form.fillForm();
         }
       }
     });
 
-    mapPinMain.addEventListener('keydown', function (e) {
-      if (typeof e === 'object') {
+    mapPinMain.addEventListener(`keydown`, function (e) {
+      if (typeof e === `object`) {
         if (e.keyCode === window.util.ENTER_KEYCODE) {
           window.load.load(onDataLoaded);
           window.form.fillForm();
@@ -53,7 +53,7 @@
   };
 
   var getPinCoords = function () {
-    var pageNotActive = window.form.addForm.classList.contains('ad-form--disabled');
+    var pageNotActive = window.form.addForm.classList.contains(`ad-form--disabled`);
     var x = 0;
     var y = 0;
     if (pageNotActive) {
@@ -63,7 +63,7 @@
       x = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2);
       y = Math.round(mapPinMain.offsetTop + PIN_HEIGHT + mapPinMain.offsetHeight);
     }
-    return String(x) + ', ' + String(y);
+    return String(x) + `, ` + String(y);
   };
 
   var onDataLoaded = function (data) {
@@ -73,7 +73,7 @@
   };
 
 
-  mapPinMain.addEventListener('mousedown', function (evt) {
+  mapPinMain.addEventListener(`mousedown`, function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -112,20 +112,20 @@
         left = MAX_LEFT;
       }
 
-      mapPinMain.style.top = top + 'px';
-      mapPinMain.style.left = left + 'px';
+      mapPinMain.style.top = top + `px`;
+      mapPinMain.style.left = left + `px`;
 
       window.form.fillForm();
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener(`mousemove`, onMouseMove);
+      document.removeEventListener(`mouseup`, onMouseUp);
     };
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener(`mousemove`, onMouseMove);
+    document.addEventListener(`mouseup`, onMouseUp);
   });
 
   var createPins = function (array) {
