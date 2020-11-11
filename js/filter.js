@@ -58,11 +58,11 @@ var filterPinsByFeatures = function (pinSimilar) {
 
 var updateSimillarPins = function (array) {
   var filteredOffersArray = array.filter(filterPinsByType)
-  .filter(filterPinsByRooms)
-  .filter(filterPinsByGuests)
-  .filter(filterPinsByPrice)
-  .filter(filterPinsByFeatures)
-  .slice(0, MAX_SIMILLAR_PINS_COUNT);
+    .filter(filterPinsByRooms)
+    .filter(filterPinsByGuests)
+    .filter(filterPinsByPrice)
+    .filter(filterPinsByFeatures)
+    .slice(0, MAX_SIMILLAR_PINS_COUNT);
 
   window.card.hideActiveCard();
   window.pin.removePins();

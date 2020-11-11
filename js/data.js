@@ -1,10 +1,8 @@
 "use strict";
 
-(function () {
-  var listOfRentals = [];
+var listOfRentals = [];
 
 
-  window.data = {
-    listOfRentals: listOfRentals,
-  };
-})();
+window.data = {
+  listOfRentals: listOfRentals,
+};
