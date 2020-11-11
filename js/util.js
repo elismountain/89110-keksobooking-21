@@ -4,6 +4,7 @@ var ENTER_KEYCODE = 13;
 var ESC_KEYCODE = 27;
 var DEBOUNCE_INTERVAL = 500;
 
+
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -51,6 +52,7 @@ var debounce = function (cb) {
     lastTimeout = window.setTimeout(() => {
       cb(...parameters);
     }, DEBOUNCE_INTERVAL);
+
   };
 };
 

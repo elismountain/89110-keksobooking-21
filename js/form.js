@@ -43,7 +43,6 @@ addForm.addEventListener(`submit`, (evt) => {
   evt.preventDefault();
 });
 
-
 var fillForm = function () {
   formAddress.value = window.pin.getPinCoords();
 };
