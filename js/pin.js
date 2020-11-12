@@ -132,7 +132,6 @@ var createPins = function (array) {
   for (var i = 0; i < array.length; i++) {
     var pin = window.pin.getMapPin(array[i]);
     fragment.appendChild(pin);
-    window.map.pins.push(pin);
   }
   window.pin.mapListElement.appendChild(fragment);
 };

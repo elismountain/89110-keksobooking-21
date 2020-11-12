@@ -21,7 +21,6 @@ var errorMessageTemplate = document.querySelector(`#error`).content.querySelecto
 var showError = function (message) {
   var errorMessageNode = errorMessageTemplate.cloneNode(true);
   errorMessageNode.querySelector(`.error__message`).textContent = message;
-  // window.map.onResetMode();
   document.querySelector(`main`).appendChild(errorMessageNode);
 
   document.addEventListener(`keydown`, function (e) {
