@@ -78,9 +78,9 @@ var createCard = function () {
     }
   });
 
-  var before = document.querySelector(`.map__filters-container`);
-  var nodeParent = before.parentNode;
-  nodeParent.insertBefore(mapCard, before);
+  var filtersContainer = document.querySelector(`.map__filters-container`);
+  var nodeParent = filtersContainer.parentNode;
+  nodeParent.insertBefore(mapCard, filtersContainer);
   return mapCard;
 };
 
