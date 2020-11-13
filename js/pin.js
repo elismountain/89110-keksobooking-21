@@ -149,5 +149,6 @@ window.pin = {
   getMapPin: getMapPin,
   initMapPinMain: initMapPinMain,
   removePins: removePins,
-  createPins: createPins
+  createPins: createPins,
+  // mapPinMain: mapPinMain
 };

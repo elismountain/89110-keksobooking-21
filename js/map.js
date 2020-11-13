@@ -18,10 +18,15 @@ var onActiveMode = () => {
 var onResetMode = function () {
   mainMap.classList.add(`map--faded`);
   window.form.addForm.classList.add(`ad-form--disabled`);
+  window.form.toggleDisabledOnForm();
   window.form.addForm.reset();
   window.images.resetImage();
   window.card.hideActiveCard();
   window.pin.removePins();
+
+  // window.pin.mapPinMain.style.left = DefaultMainPinCoordinates.X;
+  // window.pin.mapPinMain.style.top = DefaultMainPinCoordinates.Y;
+  // // window.form.passAddressInput(window.move.MainPinSize.circle.WIDTH, window.move.MainPinSize.circle.HEIGHT);
 };
 
 resetButton.addEventListener(`click`, onResetMode);
