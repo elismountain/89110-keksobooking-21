@@ -12,12 +12,12 @@ var MIN_PRICE = {
   bungalow: 0
 };
 
-var main = document.querySelector(`main`);
+var mainNode = document.querySelector(`main`);
 var successMessageTemplate = document.querySelector(`#success`).content.querySelector(`.success`);
 
 var showSuccessMessage = function () {
   var successMessage = successMessageTemplate.cloneNode(true);
-  main.appendChild(successMessage);
+  mainNode.appendChild(successMessage);
   successMessage.addEventListener(`click`, () => {
     successMessage.parentNode.removeChild(successMessage);
   });

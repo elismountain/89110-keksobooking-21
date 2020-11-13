@@ -69,17 +69,11 @@ var createCard = function () {
   mapCard.querySelector(`.popup__close`).addEventListener(`click`, function () {
     hideActiveCard();
   });
-  window.map.mainMap.addEventListener(`keydown`, function (e) {
-    if (typeof e === `object`) {
-      if (e.keyCode === window.util.ESC_KEYCODE) {
-        hideActiveCard();
-      }
-    }
-  });
 
-  var before = document.querySelector(`.map__filters-container`);
-  var nodeParent = before.parentNode;
-  nodeParent.insertBefore(mapCard, before);
+
+  var filtersContainer = document.querySelector(`.map__filters-container`);
+  var nodeParent = filtersContainer.parentNode;
+  nodeParent.insertBefore(mapCard, filtersContainer);
   return mapCard;
 };
 
@@ -89,6 +83,17 @@ mapCard.classList.add(`hidden`);
 var show = function (element) {
   mapCard.classList.remove(`hidden`);
   fillCard(element, mapCard);
+
+  var onKeyDown = function (e) {
+    if (typeof e === `object`) {
+      if (e.keyCode === window.util.ESC_KEYCODE) {
+        hideActiveCard();
+      }
+    }
+    window.map.mainMap.removeEventListener(`keydown`, onKeyDown);
+  };
+
+  window.map.mainMap.addEventListener(`keydown`, onKeyDown);
 };
 
 var hideActiveCard = function () {

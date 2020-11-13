@@ -1,8 +1,9 @@
 "use strict";
 
 var PIN_HEIGHT = 20;
-var MIN_TOP = 130;
-var MAX_TOP = 630;
+var PIN_MIN_TOP = 130;
+var PIN_MAX_TOP = 630;
+
 var mapListElement = window.map.mainMap.querySelector(`.map__pins`);
 var template = document.querySelector(`#pin`).content;
 var mapPinMain = window.map.mainMap.querySelector(`.map__pin--main`);
@@ -61,13 +62,17 @@ var getPinCoords = function () {
   } else {
     x = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2);
     y = Math.round(mapPinMain.offsetTop + PIN_HEIGHT + mapPinMain.offsetHeight);
+    if (y < PIN_MIN_TOP) {
+      y = PIN_MIN_TOP;
+    } else if (y > PIN_MAX_TOP) {
+      y = PIN_MAX_TOP;
+    }
   }
   return String(x) + `, ` + String(y);
 };
 
 var onDataLoaded = function (data) {
   window.data.listOfRentals = data;
-
   window.map.onActiveMode();
 };
 
@@ -95,6 +100,10 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
 
     var top = mapPinMain.offsetTop - shift.y;
     var left = mapPinMain.offsetLeft - shift.x;
+
+    var MIN_TOP = PIN_MIN_TOP - PIN_HEIGHT - mapPinMain.offsetHeight;
+    var MAX_TOP = PIN_MAX_TOP - PIN_HEIGHT - mapPinMain.offsetHeight;
+
 
     if (top < MIN_TOP) {
       top = MIN_TOP;
@@ -132,7 +141,6 @@ var createPins = function (array) {
   for (var i = 0; i < array.length; i++) {
     var pin = window.pin.getMapPin(array[i]);
     fragment.appendChild(pin);
-    window.map.pins.push(pin);
   }
   window.pin.mapListElement.appendChild(fragment);
 };
@@ -150,5 +158,6 @@ window.pin = {
   getMapPin: getMapPin,
   initMapPinMain: initMapPinMain,
   removePins: removePins,
-  createPins: createPins
+  createPins: createPins,
+  mapPinMain: mapPinMain
 };
