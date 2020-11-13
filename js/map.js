@@ -16,6 +16,14 @@ var onActiveMode = () => {
   window.form.formFiltersNode.addEventListener(`change`, filterPins);
 };
 
+
+var resetMainPin = function () {
+  var centerTop = (mainMap.offsetHeight) / 2;
+  var centerLeft = (mainMap.offsetWidth - window.pin.mapPinMain.offsetWidth) / 2;
+  window.pin.mapPinMain.style.top = centerTop + `px`;
+  window.pin.mapPinMain.style.left = centerLeft + `px`;
+};
+
 var onResetMode = function () {
   mainMap.classList.add(`map--faded`);
   window.form.addForm.classList.add(`ad-form--disabled`);
@@ -26,9 +34,8 @@ var onResetMode = function () {
   window.pin.removePins();
   window.form.addForm.price.placeholder = DEFAULT_PRICE;
   window.form.addForm.price.min = DEFAULT_PRICE;
+  resetMainPin();
   window.form.fillForm();
-
-  // // window.form.passAddressInput(window.move.MainPinSize.circle.WIDTH, window.move.MainPinSize.circle.HEIGHT);
 };
 
 resetButton.addEventListener(`click`, onResetMode);
