@@ -16,7 +16,6 @@ var fillCard = function (element, mapCard) {
   };
 
   var createPhotosFragment = function (photosList) {
-
     var photosFragment = document.createDocumentFragment();
 
     photosList.forEach(function (photo) {

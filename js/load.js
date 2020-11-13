@@ -1,5 +1,6 @@
 "use strict";
 
+
 var Url = {
   LOAD: `https://21.javascript.pages.academy/keksobooking/data`,
   UPLOAD: `https://21.javascript.pages.academy/keksobooking`
@@ -60,6 +61,7 @@ var workWithServer = function (method, dataUrl, onSuccess, data) {
   xhr.timeout = TIMEOUT_IN_MS;
   xhr.send(method === RequestMethod.GET ? '' : data);
 };
+
 
 window.load = {
   load: (onSuccess) => {
