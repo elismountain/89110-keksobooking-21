@@ -2,6 +2,7 @@
 
 var mainMap = document.querySelector(`.map`);
 var resetButton = document.querySelector(`.ad-form__reset`);
+var DEFAULT_PRICE = `1000`;
 
 var onActiveMode = () => {
   mainMap.classList.remove(`map--faded`);
@@ -23,6 +24,9 @@ var onResetMode = function () {
   window.images.resetImage();
   window.card.hideActiveCard();
   window.pin.removePins();
+
+  window.form.addForm.price.placeholder = DEFAULT_PRICE;
+  window.form.addForm.price.min = DEFAULT_PRICE;
 
   // window.pin.mapPinMain.style.left = DefaultMainPinCoordinates.X;
   // window.pin.mapPinMain.style.top = DefaultMainPinCoordinates.Y;

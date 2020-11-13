@@ -67,7 +67,6 @@ var getPinCoords = function () {
 
 var onDataLoaded = function (data) {
   window.data.listOfRentals = data;
-
   window.map.onActiveMode();
 };
 
@@ -150,5 +149,5 @@ window.pin = {
   initMapPinMain: initMapPinMain,
   removePins: removePins,
   createPins: createPins,
-  // mapPinMain: mapPinMain
+  mapPinMain: mapPinMain
 };
