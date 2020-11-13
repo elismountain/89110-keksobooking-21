@@ -24,12 +24,10 @@ var onResetMode = function () {
   window.images.resetImage();
   window.card.hideActiveCard();
   window.pin.removePins();
-
   window.form.addForm.price.placeholder = DEFAULT_PRICE;
   window.form.addForm.price.min = DEFAULT_PRICE;
+  window.form.fillForm();
 
-  // window.pin.mapPinMain.style.left = DefaultMainPinCoordinates.X;
-  // window.pin.mapPinMain.style.top = DefaultMainPinCoordinates.Y;
   // // window.form.passAddressInput(window.move.MainPinSize.circle.WIDTH, window.move.MainPinSize.circle.HEIGHT);
 };
 
