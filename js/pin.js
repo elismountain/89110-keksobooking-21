@@ -9,7 +9,7 @@ const template = document.querySelector(`#pin`).content;
 const mapPinMain = window.map.mainMap.querySelector(`.map__pin--main`);
 
 const getMapPin = function (element) {
-  const mapPin = template.querySelector(`.map__pin`).cloneNode(true);
+  let mapPin = template.querySelector(`.map__pin`).cloneNode(true);
   const mapPinImage = mapPin.querySelector(`img`);
 
   mapPin.style.left = element.location.x - (mapPinImage.width / 2) + `px`;
@@ -73,7 +73,7 @@ const onDataLoaded = function (data) {
 mapPinMain.addEventListener(`mousedown`, function (evt) {
   evt.preventDefault();
 
-  const startCoords = {
+  let startCoords = {
     x: evt.clientX,
     y: evt.clientY
   };
@@ -91,8 +91,8 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
       y: moveEvt.clientY
     };
 
-    const top = mapPinMain.offsetTop - shift.y;
-    const left = mapPinMain.offsetLeft - shift.x;
+    let top = mapPinMain.offsetTop - shift.y;
+    let left = mapPinMain.offsetLeft - shift.x;
 
     const MIN_TOP = PIN_MIN_TOP - PIN_HEIGHT - mapPinMain.offsetHeight;
     const MAX_TOP = PIN_MAX_TOP - PIN_HEIGHT - mapPinMain.offsetHeight;

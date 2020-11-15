@@ -12,19 +12,11 @@ const inputBoxes = Array.from(window.form.formFiltersNode.features);
 
 
 const containsValue = (objectValue, filterValue, sourceArray, element) => {
-  if (window.form.formFiltersNode[objectValue].value === FILTER_DEFAULT_VALUE) {
-    return true;
-  } else {
-    return parseInt(element.offer[filterValue], 10) === parseInt(window.form.formFiltersNode[objectValue].value, 10);
-  }
+  return window.form.formFiltersNode[objectValue].value === FILTER_DEFAULT_VALUE ? true : element.offer[filterValue] === window.form.formFiltersNode[objectValue].value;
 };
 
 const filterPinsByType = (element) => {
-  if (window.form.formFiltersNode[`housing-type`].value === FILTER_DEFAULT_VALUE) {
-    return true;
-  } else {
-    return element.offer.type === window.form.formFiltersNode[`housing-type`].value;
-  }
+  return window.form.formFiltersNode[`housing-type`].value === FILTER_DEFAULT_VALUE ? true : element.offer.type === window.form.formFiltersNode[`housing-type`].value;
 };
 
 const filterPinsByRooms = (pinSimilar, index, array) => {

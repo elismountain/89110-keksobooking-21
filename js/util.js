@@ -23,7 +23,7 @@ const numDecline = function (num, nominative, genitiveSingular, genitivePlural) 
 };
 
 const debounce = function (cb) {
-  const lastTimeout = null;
+  let lastTimeout = null;
   return (...parameters) => {
     if (lastTimeout) {
       window.clearTimeout(lastTimeout);
