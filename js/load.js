@@ -1,26 +1,27 @@
 "use strict";
 
 
-var Url = {
+const Url = {
   LOAD: `https://21.javascript.pages.academy/keksobooking/data`,
   UPLOAD: `https://21.javascript.pages.academy/keksobooking`
 };
 
-var StatusCode = {
+const StatusCode = {
   OK: 200
 };
 
-var TIMEOUT_IN_MS = 10000;
+const TIMEOUT_IN_MS = 10000;
 
-var RequestMethod = {
+const RequestMethod = {
   GET: `GET`,
   POST: `POST`
 };
 
-var errorMessageTemplate = document.querySelector(`#error`).content.querySelector(`.error`);
+const errorMessageTemplate = document.querySelector(`#error`).content.querySelector(`.error`);
 
-var showError = function (message) {
-  var errorMessageNode = errorMessageTemplate.cloneNode(true);
+
+const showError = function (message) {
+  const errorMessageNode = errorMessageTemplate.cloneNode(true);
   errorMessageNode.querySelector(`.error__message`).textContent = message;
   document.querySelector(`main`).appendChild(errorMessageNode);
 
@@ -41,8 +42,8 @@ var showError = function (message) {
   });
 };
 
-var workWithServer = function (method, dataUrl, onSuccess, data) {
-  var xhr = new XMLHttpRequest();
+const workWithServer = function (method, dataUrl, onSuccess, data) {
+  const xhr = new XMLHttpRequest();
   xhr.responseType = `json`;
   xhr.addEventListener(`load`, () => {
     if (xhr.status === StatusCode.OK) {
@@ -59,7 +60,7 @@ var workWithServer = function (method, dataUrl, onSuccess, data) {
   });
   xhr.open(method, dataUrl);
   xhr.timeout = TIMEOUT_IN_MS;
-  xhr.send(method === RequestMethod.GET ? '' : data);
+  xhr.send(method === RequestMethod.GET ? `` : data);
 };
 
 
@@ -71,5 +72,5 @@ window.load = {
   upload: (data, onSuccess) => {
     workWithServer(RequestMethod.POST, Url.UPLOAD, onSuccess, data);
   },
-  showError: showError
+  showError
 };

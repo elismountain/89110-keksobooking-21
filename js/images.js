@@ -1,22 +1,21 @@
 "use strict";
 
-var FILE_TYPES = [`gif`, `jpg`, `jpeg`, `png`];
+const FILE_TYPES = [`gif`, `jpg`, `jpeg`, `png`];
+const avatarImageChose = window.form.addForm.querySelector(`.ad-form-header__input`);
+const roomImageChoose = window.form.addForm.querySelector(`.ad-form__input`);
+const previewAvatarNode = window.form.addForm.querySelector(`.ad-form-header__preview img`);
+const previewRoomNode = window.form.addForm.querySelector(`.ad-form__photo img`);
 
-var avatarImageChose = window.form.addForm.querySelector(`.ad-form-header__input`);
-var roomImageChoose = window.form.addForm.querySelector(`.ad-form__input`);
-var previewAvatarNode = window.form.addForm.querySelector(`.ad-form-header__preview img`);
-var previewRoomNode = window.form.addForm.querySelector(`.ad-form__photo img`);
-
-var defaultImage = {
+const defaultImage = {
   AVATAR: previewAvatarNode.src,
   ROOM: ``
 };
 
-var addImage = (imageChooserInput, previewImageNode) => {
-  var image = imageChooserInput.files[0];
-  var imageName = image.name.toLowerCase();
+const addImage = (imageChooserInput, previewImageNode) => {
+  const image = imageChooserInput.files[0];
+  const imageName = image.name.toLowerCase();
 
-  var matches = FILE_TYPES.some(function (it) {
+  const matches = FILE_TYPES.some(function (it) {
     return imageName.endsWith(it);
   });
 
@@ -40,12 +39,12 @@ roomImageChoose.addEventListener(`change`, () => {
   addImage(roomImageChoose, previewRoomNode);
 });
 
-var resetImage = function () {
+const resetImage = function () {
   previewRoomNode.classList.add(`hidden`);
   previewRoomNode.src = defaultImage.ROOM;
   previewAvatarNode.src = defaultImage.AVATAR;
 };
 
 window.images = {
-  resetImage: resetImage
+  resetImage
 };

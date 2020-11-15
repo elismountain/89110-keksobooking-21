@@ -1,9 +1,9 @@
 "use strict";
 
-var features = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
+const features = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
 
-var fillCard = function (element, mapCard) {
-  var getValueTypeOffer = function () {
+const fillCard = function (element, mapCard) {
+  const getValueTypeOffer = function () {
     if (element.offer.type === `palace`) {
       return `Дворец`;
     } else if (element.offer.type === `flat`) {
@@ -15,11 +15,11 @@ var fillCard = function (element, mapCard) {
     }
   };
 
-  var createPhotosFragment = function (photosList) {
-    var photosFragment = document.createDocumentFragment();
+  const createPhotosFragment = function (photosList) {
+    const photosFragment = document.createDocumentFragment();
 
     photosList.forEach(function (photo) {
-      var photoItem = document.createElement(`img`);
+      const photoItem = document.createElement(`img`);
       photoItem.className = `popup__photo`;
       photoItem.width = 45;
       photoItem.height = 40;
@@ -32,9 +32,9 @@ var fillCard = function (element, mapCard) {
     return photosFragment;
   };
 
-  var showFeatures = function () {
-    for (var i = 0; i < features.length; i++) {
-      var featureIcon = mapCard.querySelectorAll(`.popup__feature--` + features[i])[0];
+  const showFeatures = function () {
+    for (let i = 0; i < features.length; i++) {
+      const featureIcon = mapCard.querySelectorAll(`.popup__feature--` + features[i])[0];
       if (element.offer.features.includes(features[i])) {
         featureIcon.classList.remove(`hidden`);
       } else {
@@ -46,7 +46,7 @@ var fillCard = function (element, mapCard) {
   showFeatures();
 
 
-  var popupPhotos = mapCard.querySelector(`.popup__photos`);
+  const popupPhotos = mapCard.querySelector(`.popup__photos`);
   while (popupPhotos.firstChild) {
     popupPhotos.removeChild(popupPhotos.firstChild);
   }
@@ -63,28 +63,28 @@ var fillCard = function (element, mapCard) {
 };
 
 
-var createCard = function () {
-  var cardTemplate = document.querySelector(`#card`).content;
-  var mapCard = cardTemplate.querySelector(`.map__card`).cloneNode(true);
+const createCard = function () {
+  const cardTemplate = document.querySelector(`#card`).content;
+  const mapCard = cardTemplate.querySelector(`.map__card`).cloneNode(true);
   mapCard.querySelector(`.popup__close`).addEventListener(`click`, function () {
     hideActiveCard();
   });
 
 
-  var filtersContainer = document.querySelector(`.map__filters-container`);
-  var nodeParent = filtersContainer.parentNode;
+  const filtersContainer = document.querySelector(`.map__filters-container`);
+  const nodeParent = filtersContainer.parentNode;
   nodeParent.insertBefore(mapCard, filtersContainer);
   return mapCard;
 };
 
-var mapCard = createCard();
+const mapCard = createCard();
 mapCard.classList.add(`hidden`);
 
-var show = function (element) {
+const show = function (element) {
   mapCard.classList.remove(`hidden`);
   fillCard(element, mapCard);
 
-  var onKeyDown = function (e) {
+  const onKeyDown = function (e) {
     if (typeof e === `object`) {
       if (e.keyCode === window.util.ESC_KEYCODE) {
         hideActiveCard();
@@ -96,14 +96,14 @@ var show = function (element) {
   window.map.mainMap.addEventListener(`keydown`, onKeyDown);
 };
 
-var hideActiveCard = function () {
+const hideActiveCard = function () {
   mapCard.classList.add(`hidden`);
 };
 
 window.card = {
-  createCard: createCard,
-  fillCard: fillCard,
-  mapCard: mapCard,
-  show: show,
-  hideActiveCard: hideActiveCard
+  createCard,
+  fillCard,
+  mapCard,
+  show,
+  hideActiveCard
 };

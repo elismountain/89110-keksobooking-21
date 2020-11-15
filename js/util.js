@@ -1,32 +1,11 @@
 "use strict";
 
-var ENTER_KEYCODE = 13;
-var ESC_KEYCODE = 27;
-var DEBOUNCE_INTERVAL = 500;
+const ENTER_KEYCODE = 13;
+const ESC_KEYCODE = 27;
+const DEBOUNCE_INTERVAL = 500;
 
 
-var getRandomNumber = function (min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
-var getRandomElement = function (arr) {
-  return arr[getRandomNumber(0, arr.length)];
-};
-
-var getRandomArray = function (arr) {
-  var newArr = [];
-  var newArrLen = getRandomNumber(1, arr.length);
-
-  while (newArr.length < newArrLen) {
-    var randomElement = getRandomElement(arr);
-    if (newArr.indexOf(randomElement) === -1) {
-      newArr.push(randomElement);
-    }
-  }
-  return newArr;
-};
-
-var numDecline = function (num, nominative, genitiveSingular, genitivePlural) {
+const numDecline = function (num, nominative, genitiveSingular, genitivePlural) {
   if (num > 10 && (Math.round((num % 100) / 10) === 1)) {
     return genitivePlural;
   } else {
@@ -43,8 +22,8 @@ var numDecline = function (num, nominative, genitiveSingular, genitivePlural) {
   }
 };
 
-var debounce = function (cb) {
-  var lastTimeout = null;
+const debounce = function (cb) {
+  const lastTimeout = null;
   return (...parameters) => {
     if (lastTimeout) {
       window.clearTimeout(lastTimeout);
@@ -57,11 +36,8 @@ var debounce = function (cb) {
 };
 
 window.util = {
-  debounce: debounce,
-  getRandomNumber: getRandomNumber,
-  getRandomElement: getRandomElement,
-  getRandomArray: getRandomArray,
-  numDecline: numDecline,
-  ENTER_KEYCODE: ENTER_KEYCODE,
-  ESC_KEYCODE: ESC_KEYCODE
+  debounce,
+  numDecline,
+  ENTER_KEYCODE,
+  ESC_KEYCODE
 };

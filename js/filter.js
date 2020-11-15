@@ -1,17 +1,17 @@
 "use strict";
 
-var MAX_SIMILLAR_PINS_COUNT = 5;
-var FILTER_DEFAULT_VALUE = `any`;
+const MAX_SIMILLAR_PINS_COUNT = 5;
+const FILTER_DEFAULT_VALUE = `any`;
 
-var RoomPrice = {
+const RoomPrice = {
   LOW: 10000,
   HIGH: 50000
 };
 
+const inputBoxes = Array.from(window.form.formFiltersNode.features);
 
-var inputBoxes = Array.from(window.form.formFiltersNode.features);
 
-var containsValue = (objectValue, filterValue, sourceArray, element) => {
+const containsValue = (objectValue, filterValue, sourceArray, element) => {
   if (window.form.formFiltersNode[objectValue].value === FILTER_DEFAULT_VALUE) {
     return true;
   } else {
@@ -19,7 +19,7 @@ var containsValue = (objectValue, filterValue, sourceArray, element) => {
   }
 };
 
-var filterPinsByType = (element) => {
+const filterPinsByType = (element) => {
   if (window.form.formFiltersNode[`housing-type`].value === FILTER_DEFAULT_VALUE) {
     return true;
   } else {
@@ -27,16 +27,16 @@ var filterPinsByType = (element) => {
   }
 };
 
-var filterPinsByRooms = (pinSimilar, index, array) => {
+const filterPinsByRooms = (pinSimilar, index, array) => {
   return containsValue(`housing-rooms`, `rooms`, array, pinSimilar);
 };
 
-var filterPinsByGuests = (pinSimilar, index, array) => {
+const filterPinsByGuests = (pinSimilar, index, array) => {
   return containsValue(`housing-guests`, `guests`, array, pinSimilar);
 };
 
 
-var filterPinsByPrice = (pinSimilar) => {
+const filterPinsByPrice = (pinSimilar) => {
   switch (window.form.formFiltersNode[`housing-price`].value) {
     case `low`:
       return pinSimilar.offer.price < RoomPrice.LOW;
@@ -49,15 +49,15 @@ var filterPinsByPrice = (pinSimilar) => {
   }
 };
 
-var filterPinsByFeatures = function (pinSimilar) {
+const filterPinsByFeatures = function (pinSimilar) {
   return !inputBoxes.some(function (element) {
     return element.checked && !pinSimilar.offer.features.includes(element.value);
   });
 };
 
 
-var updateSimillarPins = function (array) {
-  var filteredOffersArray = array.filter(filterPinsByType)
+const updateSimillarPins = function (array) {
+  const filteredOffersArray = array.filter(filterPinsByType)
     .filter(filterPinsByRooms)
     .filter(filterPinsByGuests)
     .filter(filterPinsByPrice)
@@ -70,5 +70,5 @@ var updateSimillarPins = function (array) {
 };
 
 window.filter = {
-  updateSimillarPins: updateSimillarPins
+  updateSimillarPins
 };

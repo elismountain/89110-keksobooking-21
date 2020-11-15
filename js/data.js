@@ -1,8 +1,7 @@
 "use strict";
 
-var listOfRentals = [];
-
+const listOfRentals = [];
 
 window.data = {
-  listOfRentals: listOfRentals,
+  listOfRentals
 };
