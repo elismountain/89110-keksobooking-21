@@ -34,10 +34,8 @@ const showSuccessMessage = function () {
   });
   document.addEventListener(`keydown`, function (e) {
     e.preventDefault();
-    if (typeof e === `object`) {
-      if (e.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
-        successMessage.parentNode.removeChild(successMessage);
-      }
+    if (e.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
+      successMessage.parentNode.removeChild(successMessage);
     }
   }, {
     once: true

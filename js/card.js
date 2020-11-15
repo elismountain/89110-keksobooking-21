@@ -85,10 +85,8 @@ const show = function (element) {
   fillCard(element, mapCard);
 
   const onKeyDown = function (e) {
-    if (typeof e === `object`) {
-      if (e.keyCode === window.util.ESC_KEYCODE) {
-        hideActiveCard();
-      }
+    if (e.keyCode === window.util.ESC_KEYCODE) {
+      hideActiveCard();
     }
     window.map.mainMap.removeEventListener(`keydown`, onKeyDown);
   };

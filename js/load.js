@@ -26,11 +26,9 @@ const showError = function (message) {
   document.querySelector(`main`).appendChild(errorMessageNode);
 
   document.addEventListener(`keydown`, function (e) {
-    if (typeof e === `object`) {
-      if (e.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
-        window.map.onResetMode();
-        errorMessageNode.parentNode.removeChild(errorMessageNode);
-      }
+    if (e.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
+      window.map.onResetMode();
+      errorMessageNode.parentNode.removeChild(errorMessageNode);
     }
   });
 

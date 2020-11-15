@@ -26,27 +26,21 @@ const getMapPin = function (element) {
 
 const initMapPinMain = function () {
   mapPinMain.addEventListener(`mousedown`, function (e) {
-    if (typeof e === `object`) {
-      if (e.button === 0) {
-        window.load.load(onDataLoaded);
-      }
+    if (e.button === 0) {
+      window.load.load(onDataLoaded);
     }
   });
 
   mapPinMain.addEventListener(`mouseup`, function (e) {
-    if (typeof e === `object`) {
-      if (e.button === 0) {
-        window.form.fillForm();
-      }
+    if (e.button === 0) {
+      window.form.fillForm();
     }
   });
 
   mapPinMain.addEventListener(`keydown`, function (e) {
-    if (typeof e === `object`) {
-      if (e.keyCode === window.util.ENTER_KEYCODE) {
-        window.load.load(onDataLoaded);
-        window.form.fillForm();
-      }
+    if (e.keyCode === window.util.ENTER_KEYCODE) {
+      window.load.load(onDataLoaded);
+      window.form.fillForm();
     }
   });
 };
