@@ -53,8 +53,8 @@ const initMapPinMain = function () {
 
 const getPinCoords = function () {
   const pageNotActive = window.form.addForm.classList.contains(`ad-form--disabled`);
-  const x = 0;
-  const y = 0;
+  let x = 0;
+  let y = 0;
   if (pageNotActive) {
     x = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2);
     y = Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);

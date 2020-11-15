@@ -19,6 +19,13 @@ const MIN_PRICE = {
   bungalow: 0
 };
 
+const ROOMS_DISABLED = {
+  "1": [0, 2, 3],
+  "2": [0, 3],
+  "3": [0],
+  "100": [1, 2, 3]
+};
+
 const showSuccessMessage = function () {
   const successMessage = successMessageTemplate.cloneNode(true);
   mainNode.appendChild(successMessage);
@@ -89,25 +96,16 @@ const onValidationInputPrice = function () {
 
 const disableOptions = function (options) {
   for (let i of [0, 1, 2, 3]) {
-    capacitySelect.querySelector(`option[value="` + String(i) + `"]`).disabled = false;
-  }
-  for (let i of options) {
-    capacitySelect.querySelector(`option[value="` + String(i) + `"]`).disabled = true;
+    capacitySelect.querySelector(`option[value="` + String(i) + `"]`).disabled = options.includes(i);
   }
 };
 
 const onSetRoomChangeCapacity = function () {
-  if (roomSelect.value === `100`) {
-    capacitySelect.querySelector(`option[value="0"]`).selected = true;
-    disableOptions([1, 2, 3]);
-  } else {
-    capacitySelect.querySelector(`option[value="` + String(roomSelect.value) + `"]`).selected = true;
-    const optionsToDisable = [0];
-    for (let i = parseInt(roomSelect.value, 10) + 1; i <= 3; i++) {
-      optionsToDisable.push(i);
-    }
-    disableOptions(optionsToDisable);
-  }
+
+  let rooms = parseInt(roomSelect.value, 10);
+  capacitySelect.querySelector(`option[value="` + String(rooms % 100) + `"]`).selected = true;
+
+  disableOptions(ROOMS_DISABLED[roomSelect.value]);
   onCapasityValidation();
 };
 
