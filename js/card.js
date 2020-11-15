@@ -1,18 +1,21 @@
 "use strict";
 
-const features = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
+const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
+
+const OFFER_TYPES = {
+  "palace": `Дворец`,
+  "flat": `Квартира`,
+  "house": `Дом`,
+  "bungalow": `Бунгало`
+};
+
+const PHOTO_HEIGHT = 40;
+const PHOTO_WIDTH = 45;
+const PHOTO_ALT = `Фотография жилья`;
 
 const fillCard = function (element, mapCard) {
   const getValueTypeOffer = function () {
-    if (element.offer.type === `palace`) {
-      return `Дворец`;
-    } else if (element.offer.type === `flat`) {
-      return `Квартира`;
-    } else if (element.offer.type === `house`) {
-      return `Дом`;
-    } else {
-      return `Бунгало`;
-    }
+    return OFFER_TYPES[element.offer.type];
   };
 
   const createPhotosFragment = function (photosList) {
@@ -21,9 +24,9 @@ const fillCard = function (element, mapCard) {
     photosList.forEach(function (photo) {
       const photoItem = document.createElement(`img`);
       photoItem.className = `popup__photo`;
-      photoItem.width = 45;
-      photoItem.height = 40;
-      photoItem.alt = `Фотография жилья`;
+      photoItem.width = PHOTO_WIDTH;
+      photoItem.height = PHOTO_HEIGHT;
+      photoItem.alt = PHOTO_ALT;
       photoItem.src = photo;
 
       photosFragment.appendChild(photoItem);
@@ -33,9 +36,9 @@ const fillCard = function (element, mapCard) {
   };
 
   const showFeatures = function () {
-    for (let i = 0; i < features.length; i++) {
-      const featureIcon = mapCard.querySelectorAll(`.popup__feature--` + features[i])[0];
-      if (element.offer.features.includes(features[i])) {
+    for (let i = 0; i < FEATURES.length; i++) {
+      const featureIcon = mapCard.querySelectorAll(`.popup__feature--` + FEATURES[i])[0];
+      if (element.offer.features.includes(FEATURES[i])) {
         featureIcon.classList.remove(`hidden`);
       } else {
         featureIcon.classList.add(`hidden`);

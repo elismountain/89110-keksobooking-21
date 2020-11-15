@@ -12,6 +12,12 @@ const mainNode = document.querySelector(`main`);
 const successMessageTemplate = document.querySelector(`#success`).content.querySelector(`.success`);
 const inputTitle = addForm.querySelector(`#title`);
 
+const IMPUT_TITLE_MIN_LENGTH = 30;
+const IMPUT_TITLE_MAX_LENGTH = 100;
+const IMPUT_PRICE_MIN_LENGTH = 0;
+const IMPUT_PRICE_MAX_LENGTH = 1000000;
+
+
 const MIN_PRICE = {
   palace: 10000,
   house: 5000,
@@ -71,8 +77,8 @@ const toggleDisabledOnForm = () => {
 
 const onValidationInputTitle = function () {
   inputTitle.required = true;
-  inputTitle.minLength = 30;
-  inputTitle.maxLength = 100;
+  inputTitle.minLength = IMPUT_TITLE_MIN_LENGTH;
+  inputTitle.maxLength = IMPUT_TITLE_MAX_LENGTH;
 };
 
 const onValidationInputAddress = function () {
@@ -88,8 +94,8 @@ const onValidationInputAddress = function () {
 const onValidationInputPrice = function () {
   priceSelect.required = true;
   priceSelect.value = 1000;
-  priceSelect.min = 0;
-  priceSelect.max = 1000000;
+  priceSelect.min = IMPUT_PRICE_MIN_LENGTH;
+  priceSelect.max = IMPUT_PRICE_MAX_LENGTH;
 };
 
 const disableOptions = function (options) {
