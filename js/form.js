@@ -98,10 +98,12 @@ const onValidationInputPrice = function () {
   priceSelect.max = IMPUT_PRICE_MAX_LENGTH;
 };
 
-const disableOptions = function (options) {
-  for (let i of [0, 1, 2, 3]) {
-    capacitySelect.querySelector(`option[value="` + String(i) + `"]`).disabled = options.includes(i);
-  }
+const disableOptions = function (optionsToDisable) {
+  const options = capacitySelect.querySelectorAll(`option`);
+
+  options.forEach((option) => {
+    option.disabled = optionsToDisable.includes(parseInt(option.value, 10));
+  });
 };
 
 const onSetRoomChangeCapacity = function () {
