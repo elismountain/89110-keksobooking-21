@@ -25,20 +25,20 @@ const getMapPin = function (element) {
 };
 
 const initMapPinMain = function () {
-  mapPinMain.addEventListener(`mousedown`, function (e) {
-    if (e.button === 0) {
+  mapPinMain.addEventListener(`mousedown`, function (evt) {
+    if (evt.button === 0) {
       window.load.load(onDataLoaded);
     }
   });
 
-  mapPinMain.addEventListener(`mouseup`, function (e) {
-    if (e.button === 0) {
+  mapPinMain.addEventListener(`mouseup`, function (evt) {
+    if (evt.button === 0) {
       window.form.fillForm();
     }
   });
 
-  mapPinMain.addEventListener(`keydown`, function (e) {
-    if (e.keyCode === window.util.ENTER_KEYCODE) {
+  mapPinMain.addEventListener(`keydown`, function (evt) {
+    if (evt.keyCode === window.util.ENTER_KEYCODE) {
       window.load.load(onDataLoaded);
       window.form.fillForm();
     }

@@ -25,8 +25,8 @@ const showError = function (message) {
   errorMessageNode.querySelector(`.error__message`).textContent = message;
   document.querySelector(`main`).appendChild(errorMessageNode);
 
-  document.addEventListener(`keydown`, function (e) {
-    if (e.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
+  document.addEventListener(`keydown`, function (evt) {
+    if (evt.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
       window.map.onResetMode();
       errorMessageNode.parentNode.removeChild(errorMessageNode);
     }

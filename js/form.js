@@ -38,8 +38,8 @@ const showSuccessMessage = function () {
   successMessage.addEventListener(`click`, () => {
     successMessage.parentNode.removeChild(successMessage);
   });
-  document.addEventListener(`keydown`, function (e) {
-    e.preventDefault();
+  document.addEventListener(`keydown`, function (evt) {
+    evt.preventDefault();
     if (e.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
       successMessage.parentNode.removeChild(successMessage);
     }
