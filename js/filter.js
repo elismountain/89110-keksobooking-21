@@ -12,7 +12,7 @@ const inputBoxes = Array.from(window.form.formFiltersNode.features);
 
 
 const containsValue = (objectValue, filterValue, sourceArray, element) => {
-  return window.form.formFiltersNode[objectValue].value === FILTER_DEFAULT_VALUE ? true : element.offer[filterValue] === window.form.formFiltersNode[objectValue].value;
+  return window.form.formFiltersNode[objectValue].value === FILTER_DEFAULT_VALUE ? true : parseInt(element.offer[filterValue], 10) === parseInt(window.form.formFiltersNode[objectValue].value, 10);
 };
 
 const filterPinsByType = (element) => {
