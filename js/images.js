@@ -15,7 +15,7 @@ const addImage = (imageChooserInput, previewImageNode) => {
   const image = imageChooserInput.files[0];
   const imageName = image.name.toLowerCase();
 
-  const matches = FILE_TYPES.some(function (it) {
+  const matches = FILE_TYPES.some((it) => {
     return imageName.endsWith(it);
   });
 
@@ -39,7 +39,7 @@ roomImageChoose.addEventListener(`change`, () => {
   addImage(roomImageChoose, previewRoomNode);
 });
 
-const resetImage = function () {
+const resetImage = () => {
   previewRoomNode.classList.add(`hidden`);
   previewRoomNode.src = defaultImage.ROOM;
   previewAvatarNode.src = defaultImage.AVATAR;

@@ -17,14 +17,14 @@ const onActiveMode = () => {
 };
 
 
-const resetMainPin = function () {
+const resetMainPin = () => {
   const centerTop = (mainMap.offsetHeight) / 2;
   const centerLeft = (mainMap.offsetWidth - window.pin.mapPinMain.offsetWidth) / 2;
   window.pin.mapPinMain.style.top = centerTop + `px`;
   window.pin.mapPinMain.style.left = centerLeft + `px`;
 };
 
-const onResetMode = function () {
+const onResetMode = () => {
   mainMap.classList.add(`map--faded`);
   window.form.addForm.classList.add(`ad-form--disabled`);
   window.form.toggleDisabledOnForm();

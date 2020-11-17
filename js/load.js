@@ -20,13 +20,13 @@ const RequestMethod = {
 const errorMessageTemplate = document.querySelector(`#error`).content.querySelector(`.error`);
 
 
-const showError = function (message) {
+const showError = (message) => {
   const errorMessageNode = errorMessageTemplate.cloneNode(true);
   errorMessageNode.querySelector(`.error__message`).textContent = message;
   document.querySelector(`main`).appendChild(errorMessageNode);
 
-  document.addEventListener(`keydown`, function (evt) {
-    if (evt.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
+  document.addEventListener(`keydown`, (evt) => {
+    if (evt.keyCode === window.util.ESC_KEYCODE || evt.keyCode === window.util.ENTER_KEYCODE) {
       window.map.onResetMode();
       errorMessageNode.parentNode.removeChild(errorMessageNode);
     }
@@ -40,7 +40,7 @@ const showError = function (message) {
   });
 };
 
-const workWithServer = function (method, dataUrl, onSuccess, data) {
+const workWithServer = (method, dataUrl, onSuccess, data) => {
   const xhr = new XMLHttpRequest();
   xhr.responseType = `json`;
   xhr.addEventListener(`load`, () => {

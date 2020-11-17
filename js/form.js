@@ -32,15 +32,15 @@ const ROOMS_DISABLED = {
   "100": [1, 2, 3]
 };
 
-const showSuccessMessage = function () {
+const showSuccessMessage = () => {
   const successMessage = successMessageTemplate.cloneNode(true);
   mainNode.appendChild(successMessage);
   successMessage.addEventListener(`click`, () => {
     successMessage.parentNode.removeChild(successMessage);
   });
-  document.addEventListener(`keydown`, function (evt) {
+  document.addEventListener(`keydown`, (evt) => {
     evt.preventDefault();
-    if (e.keyCode === window.util.ESC_KEYCODE || e.keyCode === window.util.ENTER_KEYCODE) {
+    if (evt.keyCode === window.util.ESC_KEYCODE || evt.keyCode === window.util.ENTER_KEYCODE) {
       successMessage.parentNode.removeChild(successMessage);
     }
   }, {
@@ -48,7 +48,7 @@ const showSuccessMessage = function () {
   });
 };
 
-const onDataUploaded = function () {
+const onDataUploaded = () => {
   window.map.onResetMode();
   showSuccessMessage();
 };
@@ -58,32 +58,31 @@ addForm.addEventListener(`submit`, (evt) => {
   evt.preventDefault();
 });
 
-const fillForm = function () {
+const fillForm = () => {
   formAddress.value = window.pin.getPinCoords();
 };
 
+
 const toggleDisabledOnForm = () => {
   const pageNotActive = addForm.classList.contains(`ad-form--disabled`);
-  Array.from(addForm.children).forEach((children) => {
+  const disableChildren = (children) => {
     children.disabled = pageNotActive;
     children.classList.toggle(`disable-cursor`);
-  });
-  Array.from(formFiltersNode.children).forEach((children) => {
-    children.disabled = pageNotActive;
-    children.classList.toggle(`disable-cursor`);
-  });
+  };
+  Array.from(addForm.children).forEach(disableChildren);
+  Array.from(formFiltersNode.children).forEach(disableChildren);
 };
 
 
-const onValidationInputTitle = function () {
+const onValidationInputTitle = () => {
   inputTitle.required = true;
   inputTitle.minLength = IMPUT_TITLE_MIN_LENGTH;
   inputTitle.maxLength = IMPUT_TITLE_MAX_LENGTH;
 };
 
-const onValidationInputAddress = function () {
+const onValidationInputAddress = () => {
   inputAddress.required = `required`;
-  inputAddress.addEventListener(`keydown`, function (evt) {
+  inputAddress.addEventListener(`keydown`, (evt) => {
     if (evt.keyCode !== window.util.ENTER_KEYCODE) {
       evt.preventDefault();
     }
@@ -91,14 +90,14 @@ const onValidationInputAddress = function () {
 };
 
 
-const onValidationInputPrice = function () {
+const onValidationInputPrice = () => {
   priceSelect.required = true;
   priceSelect.value = 1000;
   priceSelect.min = IMPUT_PRICE_MIN_LENGTH;
   priceSelect.max = IMPUT_PRICE_MAX_LENGTH;
 };
 
-const disableOptions = function (optionsToDisable) {
+const disableOptions = (optionsToDisable) => {
   const options = capacitySelect.querySelectorAll(`option`);
 
   options.forEach((option) => {
@@ -106,31 +105,15 @@ const disableOptions = function (optionsToDisable) {
   });
 };
 
-const onSetRoomChangeCapacity = function () {
+const onSetRoomChangeCapacity = () => {
 
   let rooms = parseInt(roomSelect.value, 10);
   capacitySelect.querySelector(`option[value="` + String(rooms % 100) + `"]`).selected = true;
 
   disableOptions(ROOMS_DISABLED[roomSelect.value]);
-  onCapasityValidation();
 };
 
-const onCapasityValidation = function () {
-  if (roomSelect.value === `100` && capacitySelect.value !== `0`) {
-    capacitySelect.setCustomValidity(`Не для гостей`);
-  } else if (roomSelect.value === `3` && capacitySelect.value === `0`) {
-    capacitySelect.setCustomValidity(`Количество гостей может быть 1, 2, 3`);
-  } else if (roomSelect.value === `2` && capacitySelect.value === `0` || roomSelect.value === `2` && capacitySelect.value === `3`) {
-    capacitySelect.setCustomValidity(`Количество гостей может быть 1 или 2`);
-  } else if (roomSelect.value === `1` && capacitySelect.value === `0` || roomSelect.value === `1` && capacitySelect.value === `2` || roomSelect.value === `1` && capacitySelect.value === `3`) {
-    capacitySelect.setCustomValidity(`Только для 1 гостя`);
-  } else {
-    capacitySelect.setCustomValidity(``);
-  }
-  capacitySelect.reportValidity();
-};
-
-const onFormNodeChange = function (evt) {
+const onFormNodeChange = (evt) => {
   switch (evt.target) {
     case addForm.timein:
     case addForm.timeout:
@@ -148,10 +131,9 @@ const validatePriceInput = () => {
 };
 
 roomSelect.addEventListener(`change`, onSetRoomChangeCapacity);
-roomSelect.addEventListener(`input`, onSetRoomChangeCapacity);
 addForm.addEventListener(`change`, onFormNodeChange);
 
-const validateTimeSelects = function (evt) {
+const validateTimeSelects = (evt) => {
   if (evt.target === addForm.timein) {
     addForm.timeout.value = addForm.timein.value;
   } else {
@@ -159,13 +141,12 @@ const validateTimeSelects = function (evt) {
   }
 };
 
-const initForm = function () {
+const initForm = () => {
   onValidationInputTitle();
   onValidationInputAddress();
   formAddress.value = window.pin.getPinCoords();
   toggleDisabledOnForm();
   onValidationInputPrice();
-  onCapasityValidation();
   onSetRoomChangeCapacity();
 };
 

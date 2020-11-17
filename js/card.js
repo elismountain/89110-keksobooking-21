@@ -13,15 +13,15 @@ const PHOTO_HEIGHT = 40;
 const PHOTO_WIDTH = 45;
 const PHOTO_ALT = `Фотография жилья`;
 
-const fillCard = function (element, mapCard) {
-  const getValueTypeOffer = function () {
+const fillCard = (element, mapCard) => {
+  const getValueTypeOffer = () => {
     return OFFER_TYPES[element.offer.type];
   };
 
-  const createPhotosFragment = function (photosList) {
+  const createPhotosFragment = (photosList) => {
     const photosFragment = document.createDocumentFragment();
 
-    photosList.forEach(function (photo) {
+    photosList.forEach((photo) => {
       const photoItem = document.createElement(`img`);
       photoItem.className = `popup__photo`;
       photoItem.width = PHOTO_WIDTH;
@@ -35,7 +35,7 @@ const fillCard = function (element, mapCard) {
     return photosFragment;
   };
 
-  const showFeatures = function () {
+  const showFeatures = () => {
     for (let i = 0; i < FEATURES.length; i++) {
       const featureIcon = mapCard.querySelectorAll(`.popup__feature--` + FEATURES[i])[0];
       if (element.offer.features.includes(FEATURES[i])) {
@@ -66,10 +66,10 @@ const fillCard = function (element, mapCard) {
 };
 
 
-const createCard = function () {
+const createCard = () => {
   const cardTemplate = document.querySelector(`#card`).content;
   const mapCard = cardTemplate.querySelector(`.map__card`).cloneNode(true);
-  mapCard.querySelector(`.popup__close`).addEventListener(`click`, function () {
+  mapCard.querySelector(`.popup__close`).addEventListener(`click`, () => {
     hideActiveCard();
   });
 
@@ -83,11 +83,11 @@ const createCard = function () {
 const mapCard = createCard();
 mapCard.classList.add(`hidden`);
 
-const show = function (element) {
+const show = (element) => {
   mapCard.classList.remove(`hidden`);
   fillCard(element, mapCard);
 
-  const onKeyDown = function (evt) {
+  const onKeyDown = (evt) => {
     if (evt.keyCode === window.util.ESC_KEYCODE) {
       hideActiveCard();
     }
@@ -97,7 +97,7 @@ const show = function (element) {
   window.map.mainMap.addEventListener(`keydown`, onKeyDown);
 };
 
-const hideActiveCard = function () {
+const hideActiveCard = () => {
   mapCard.classList.add(`hidden`);
 };
 

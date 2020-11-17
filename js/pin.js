@@ -8,7 +8,7 @@ const mapListElement = window.map.mainMap.querySelector(`.map__pins`);
 const template = document.querySelector(`#pin`).content;
 const mapPinMain = window.map.mainMap.querySelector(`.map__pin--main`);
 
-const getMapPin = function (element) {
+const getMapPin = (element) => {
   let mapPin = template.querySelector(`.map__pin`).cloneNode(true);
   const mapPinImage = mapPin.querySelector(`img`);
 
@@ -16,7 +16,7 @@ const getMapPin = function (element) {
   mapPin.style.top = element.location.y - mapPinImage.height + `px`;
   mapPin.querySelector(`img`).setAttribute(`src`, element.author.avatar);
 
-  mapPin.addEventListener(`click`, function () {
+  mapPin.addEventListener(`click`, () => {
     window.card.show(element);
     mapListElement.appendChild(window.card.mapCard);
   });
@@ -24,20 +24,20 @@ const getMapPin = function (element) {
   return mapPin;
 };
 
-const initMapPinMain = function () {
-  mapPinMain.addEventListener(`mousedown`, function (evt) {
+const initMapPinMain = () => {
+  mapPinMain.addEventListener(`mousedown`, (evt) => {
     if (evt.button === 0) {
       window.load.load(onDataLoaded);
     }
   });
 
-  mapPinMain.addEventListener(`mouseup`, function (evt) {
+  mapPinMain.addEventListener(`mouseup`, (evt) => {
     if (evt.button === 0) {
       window.form.fillForm();
     }
   });
 
-  mapPinMain.addEventListener(`keydown`, function (evt) {
+  mapPinMain.addEventListener(`keydown`, (evt) => {
     if (evt.keyCode === window.util.ENTER_KEYCODE) {
       window.load.load(onDataLoaded);
       window.form.fillForm();
@@ -45,7 +45,7 @@ const initMapPinMain = function () {
   });
 };
 
-const getPinCoords = function () {
+const getPinCoords = () => {
   const pageNotActive = window.form.addForm.classList.contains(`ad-form--disabled`);
   let x = 0;
   let y = 0;
@@ -64,13 +64,13 @@ const getPinCoords = function () {
   return String(x) + `, ` + String(y);
 };
 
-const onDataLoaded = function (data) {
+const onDataLoaded = (data) => {
   window.data.listOfRentals = data;
   window.map.onActiveMode();
 };
 
 
-mapPinMain.addEventListener(`mousedown`, function (evt) {
+mapPinMain.addEventListener(`mousedown`, (evt) => {
   evt.preventDefault();
 
   let startCoords = {
@@ -78,7 +78,7 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
     y: evt.clientY
   };
 
-  const onMouseMove = function (moveEvt) {
+  const onMouseMove = (moveEvt) => {
     moveEvt.preventDefault();
 
     const shift = {
@@ -119,7 +119,7 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
     window.form.fillForm();
   };
 
-  const onMouseUp = function (upEvt) {
+  const onMouseUp = (upEvt) => {
     upEvt.preventDefault();
     document.removeEventListener(`mousemove`, onMouseMove);
     document.removeEventListener(`mouseup`, onMouseUp);
@@ -129,7 +129,7 @@ mapPinMain.addEventListener(`mousedown`, function (evt) {
   document.addEventListener(`mouseup`, onMouseUp);
 });
 
-const createPins = function (array) {
+const createPins = (array) => {
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < array.length; i++) {
     const pin = window.pin.getMapPin(array[i]);

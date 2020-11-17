@@ -41,14 +41,14 @@ const filterPinsByPrice = (pinSimilar) => {
   }
 };
 
-const filterPinsByFeatures = function (pinSimilar) {
-  return !inputBoxes.some(function (element) {
+const filterPinsByFeatures = (pinSimilar) => {
+  return !inputBoxes.some((element) => {
     return element.checked && !pinSimilar.offer.features.includes(element.value);
   });
 };
 
 
-const updateSimillarPins = function (array) {
+const updateSimillarPins = (array) => {
   const filteredOffersArray = array.filter(filterPinsByType)
     .filter(filterPinsByRooms)
     .filter(filterPinsByGuests)
